@@ -4,4 +4,6 @@
 
 `npm run start` to run server
 
-IDE used Visual Studio Code
+## Built With
+
+* [Visual Studio Code](https://code.visualstudio.com//) - The IDE used
