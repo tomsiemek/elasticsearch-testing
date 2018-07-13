@@ -6,13 +6,13 @@ const items = require('./routes/api/items');
 
 const app = express();
 
-// Body parser middleware
 
 app.use(bodyParser.json());
 
 // DB config
 
 const db = require('./config/keys').MongoDBUrl;
+
 //connect to mongo
 mongoose
     .connect(db, { useNewUrlParser: true })
