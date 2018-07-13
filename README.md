@@ -1,3 +1,5 @@
+Project in scratch only simplest backend logic is implemented.
+
 ## How to launch:
 
 ### In the root project directory:
