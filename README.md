@@ -1,6 +1,6 @@
 ## How to launch:
 
-# In the root project directory:
+### In the root project directory:
 
 `docker-compose up` to download and run dockers with mongoDB and elasticsearch
 
