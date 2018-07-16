@@ -15,13 +15,13 @@ class Header extends Component {
 
     render() {
         return (
-            <header class="App-header">
-                <nav class="Navbar" >
-                    <ul class="Navbar">
-                        <li class="Navbar"><Link to={Links.homePath}>{names.home}</Link></li>
-                        <li class="Navbar"><Link to={Links.tvsPath}>{names.tvs}</Link></li>
-                        <li class="Navbar"><Link to={Links.phonesPath}>{names.phones}</Link></li>
-                        <li class="Navbar"><Link to={Links.watchesPath}>{names.watches}</Link></li>
+            <header className="App-header">
+                <nav className="Navbar" >
+                    <ul className="Navbar">
+                        <li className="Navbar"><Link to={Links.homePath}>{names.home}</Link></li>
+                        <li className="Navbar"><Link to={Links.tvsPath}>{names.tvs}</Link></li>
+                        <li className="Navbar"><Link to={Links.phonesPath}>{names.phones}</Link></li>
+                        <li className="Navbar"><Link to={Links.watchesPath}>{names.watches}</Link></li>
                     </ul>
                 </nav>
             </header>

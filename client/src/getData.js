@@ -1,10 +1,9 @@
 
 
-module.exports = function get(url) {
+module.exports = function get(url, method) {
     
-
-    return fetch(url)
-        .then(data =>  data.json())
+    fetch(url)
+        .then(method)
         .catch(e => console.log(e));
 
 }

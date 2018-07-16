@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from "./component/Header"
-import Sidebar from "./component/Sidebar"
 import Main from "./component/Main"
 
 class App extends Component {
