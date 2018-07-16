@@ -21,7 +21,8 @@ const ItemSchema = new Schema(new ItemObject(
     }, 
     { 
     type: String,
-    required: true 
+    required: true,
+    es_indexed: true
     }
 ));
 ItemSchema.plugin(mongoosastic,{hosts:[elasticsearchURI]});
