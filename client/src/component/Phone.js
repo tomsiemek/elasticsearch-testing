@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-
+import getData from '../getData';
 
 class Phone extends Component {
 
 
     render() {
-        return (<div>Nothing here :(</div>)
+        return (<div>{ "testsetests" }(</div>)
     }
 }
 
