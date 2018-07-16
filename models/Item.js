@@ -5,6 +5,8 @@ const mongoosastic = require('mongoosastic');
 
 const ItemObject = require('./ItemObject')
 
+const elasticsearchURI = require('../config/keys').elasticsearchUri;
+
 
 const ItemSchema = new Schema(new ItemObject( 
     { 
@@ -22,6 +24,6 @@ const ItemSchema = new Schema(new ItemObject(
     required: true 
     }
 ));
-ItemSchema.plugin(mongoosastic,{hosts:["172.18.0.3:9200"]});
+ItemSchema.plugin(mongoosastic,{hosts:[elasticsearchURI]});
 
 module.exports = Item = mongoose.model('item', ItemSchema);
