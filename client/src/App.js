@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
-import Output from './component/Output'
+import Header from "./component/Header"
+import Sidebar from "./component/Sidebar"
+import Main from "./component/Main"
 
 class App extends Component {
   render() {
 
-    state :{
-      records: []
-    }
+    // state :{
+      
+    // }
 
     return (
       <div className="App">
-          <h3>TEST</h3>
-          <Output records = {this.state.records}/>
+        <Header />
+
+        <Main />
       </div>
+
+
     );
   }
 }
