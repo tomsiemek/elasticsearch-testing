@@ -23,6 +23,6 @@ mongoose
 
 
 // Use routes
-app.use('/api/items', items);
+app.use('/items', items);
 
 module.exports = app;

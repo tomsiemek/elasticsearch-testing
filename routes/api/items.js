@@ -4,6 +4,12 @@ const router = express.Router();
 // Item model
 const Item = require('../../models/Item');
 const ItemObject = require('../../models/ItemObject');
+var mongoosePaginate = require('mongoose-paginate');
+
+
+
+const pageLimit = 10;
+
 
 //getting all items
 router.get('/', (req,res) => {
@@ -13,7 +19,7 @@ router.get('/', (req,res) => {
         .then(items => res.json(items));
 }); // already on api/items
 
-//getting items of certain type
+
 router.get('/:type', (req,res) => {
     console.log("GET REQUEST TYPE " + new Date().toLocaleString());
     Item.find({type:  req.params.type})
@@ -21,7 +27,14 @@ router.get('/:type', (req,res) => {
         .then(items => res.json(items));
 
 });
-//adding new item
+
+router.get('/:type/:page', (req, res) => {
+    console.log("GET REQUEST TYPE PAGE + " + req.params.page  + " " + new Date().toLocaleString());
+    Item.paginate({type: req.params.type}, { page: req.params.page, limit: pageLimit })
+    .then(items => res.json(items));   
+
+});
+
 router.post('/', (req,res) => {
 
     console.log("POST REQUEST " + new Date().toLocaleString());
@@ -32,7 +45,7 @@ router.post('/', (req,res) => {
     newItem.save().then(item => res.json(item));
 }); // already on api/items
 
-//deleting item of given id
+//deleting item of a given id
 router.delete('/:id', (req,res) => {
     console.log("DELETE REQUEST: " + req.params.id)
     Item.findById(req.params.id)

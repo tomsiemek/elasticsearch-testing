@@ -7,6 +7,8 @@ const ItemObject = require('./ItemObject')
 
 const elasticsearchURI = require('../config/keys').elasticsearchUri;
 
+var mongoosePaginate = require('mongoose-paginate');
+
 
 const ItemSchema = new Schema(new ItemObject( 
     { 
@@ -26,5 +28,7 @@ const ItemSchema = new Schema(new ItemObject(
     }
 ));
 ItemSchema.plugin(mongoosastic,{hosts:[elasticsearchURI]});
+
+ItemSchema.plugin(mongoosePaginate);
 
 module.exports = Item = mongoose.model('item', ItemSchema);
