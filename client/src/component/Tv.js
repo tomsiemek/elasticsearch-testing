@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
+import Item from './Item';
+import Links from '../links';
 
 
 class Tv extends Component {
 
 
     render() {
-     return (<div>Nothing here :(</div>);
+        return <Item httpRequest = {Links.tvRequest}/>;
     }
 }
 
