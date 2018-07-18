@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from "./component/Header";
 import Main from "./component/Main";
+import Searchbar from './component/Searchbar';
 
 class App extends Component {
   render() {
@@ -12,8 +13,9 @@ class App extends Component {
 
     return (
       <div className="App">
+        <Searchbar/>
         <Header />
-
+        
         <Main />
       </div>
 
