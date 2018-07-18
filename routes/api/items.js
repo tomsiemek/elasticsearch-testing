@@ -10,7 +10,6 @@ var mongoosePaginate = require('mongoose-paginate');
 
 const pageLimit = 10;
 
-
 //getting all items
 router.get('/', (req,res) => {
     console.log("GET REQUEST " + new Date().toLocaleString());
@@ -29,7 +28,7 @@ router.get('/:type', (req,res) => {
 });
 
 router.get('/:type/:page', (req, res) => {
-    console.log("GET REQUEST TYPE PAGE + " + req.params.page  + " " + new Date().toLocaleString());
+    console.log("GET REQUEST TYPE PAGE " + req.params.page  + " " + new Date().toLocaleString());
     Item.paginate({type: req.params.type}, { page: req.params.page, limit: pageLimit })
     .then(items => res.json(items));   
 
@@ -45,6 +44,22 @@ router.post('/', (req,res) => {
     newItem.save().then(item => res.json(item));
 }); // already on api/items
 
+router.put('/search', (req,res) => {
+    console.log("SEARCH REQUEST " + new Date().toLocaleString());
+    console.log(req.body);
+    Item.search(req.body, (err,results) => {
+        if(err) {
+            console.log(err);
+        }
+
+        else {
+            return res.json(results);
+        }
+
+    }); 
+}); 
+
+
 //deleting item of a given id
 router.delete('/:id', (req,res) => {
     console.log("DELETE REQUEST: " + req.params.id)
@@ -52,4 +67,6 @@ router.delete('/:id', (req,res) => {
         .then(item => item.remove().then(() => res.json({sucess:true})))
         .catch(err => res.status(404).json({success: false}));
 });
+
+
 module.exports = router;
