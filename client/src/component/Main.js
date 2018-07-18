@@ -5,13 +5,23 @@ import Phone from './Phone';
 import Watch from './Watch';
 import Home from './Home';
 import Links from '../links';
-
+import Row from './Row';
 
 
 class Main extends Component {
 
+    showData(data){
+        if(data == null) {
+            return (<div>NO DATA :(</div>)
+        }
+
+        return this.state.data.docs.map( (item,key) => (
+            <Row name={item.name} producer={item.producer}/>
+        )) ;
+    }
 
     render() {
+        
         return (
             <main>
                 <Switch>
@@ -21,8 +31,11 @@ class Main extends Component {
                     <Route path={Links.watchesPath} component={Watch} />
                 </Switch>
             </main>
-        );
+        )
     }
+
+
+    
 }
 
 export default Main;

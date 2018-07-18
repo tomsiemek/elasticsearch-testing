@@ -19,7 +19,7 @@ router.get('/', (req,res) => {
 }); // already on api/items
 
 
-router.get('/:type', (req,res) => {
+router.get('/type/:type', (req,res) => {
     console.log("GET REQUEST TYPE " + new Date().toLocaleString());
     Item.find({type:  req.params.type})
         .sort({ name: 1})
@@ -27,7 +27,7 @@ router.get('/:type', (req,res) => {
 
 });
 
-router.get('/:type/:page', (req, res) => {
+router.get('/type/:type/page/:page', (req, res) => {
     console.log("GET REQUEST TYPE PAGE " + req.params.page  + " " + new Date().toLocaleString());
     Item.paginate({type: req.params.type}, { page: req.params.page, limit: pageLimit })
     .then(items => res.json(items));   
@@ -44,10 +44,20 @@ router.post('/', (req,res) => {
     newItem.save().then(item => res.json(item));
 }); // already on api/items
 
-router.put('/search', (req,res) => {
+router.get('/search/:id', (req,res) => {
     console.log("SEARCH REQUEST " + new Date().toLocaleString());
-    console.log(req.body);
-    Item.search(req.body, (err,results) => {
+    var query = {
+        
+        match: {
+            name: {
+                query: req.params.id,
+                fuzziness: 2
+            }
+        }
+    }
+
+    console.log(query);
+    Item.search(query, (err,results) => {
         if(err) {
             console.log(err);
         }

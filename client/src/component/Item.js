@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import Links from '../links';
 import PageButton from './PageButton';
-
-const Row = (props) => {
-    return <div>NAME: {props.name} PRODUCER: {props.producer}<br/></div>;
-}
+import Row from './Row';
 
 class Item extends Component {
 
@@ -21,7 +18,7 @@ class Item extends Component {
     }
 
     loadPage(pageNumber) {
-        fetch(Links.itemsPath + this.state.httpRequest + '/' + pageNumber)
+        fetch(Links.itemsPath + this.state.httpRequest + '/page/' + pageNumber)
         .then(data => data.json())
         .then(data__ => {this.setState({data: data__}); return data__;})
         .then(data_ => console.log(data_))
