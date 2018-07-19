@@ -109,8 +109,9 @@ class App extends Component {
 
     return (
       <div className="App">
+        <Header setPath={this.getContentPath} />
         <Searchbar onChange={this.getSearchDataFromServer}/>
-        <Header setPath={this.getContentPath} />       
+               
         <Content data={this.state.data}/>
         <Buttons maxNumberOfPages={this.state.maxNumberOfPages} onClick={this.changeCurrentPage}/>
       </div>

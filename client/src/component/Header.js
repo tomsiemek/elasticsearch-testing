@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Links from '../links';
-
+import {Menu} from 'semantic-ui-react';
 
 const names = {
     home: "Home",
@@ -14,17 +14,36 @@ class Header extends Component {
 
     render() {
         return (
+            <Menu>
+              <Menu.Item
+                name={names.home}
+                //active={activeItem === 'editorials'}
+                onClick={() => this.props.setPath(Links.homePath)}>
+                {names.home}
+              </Menu.Item>
+      
+              <Menu.Item 
+                name={names.tvs} 
+                //active={activeItem === 'reviews'} 
+                onClick={() => this.props.setPath(Links.itemsPath + Links.tvRequest)}>
+                {names.tvs}
+              </Menu.Item>
+      
+              <Menu.Item
+                name={names.phones}
+                //active={activeItem === 'upcomingEvents'}
+                onClick={() => this.props.setPath(Links.itemsPath + Links.phoneRequest)}>
+                {names.phones}
+              </Menu.Item>
 
-            <nav className="Navbar" >
-                <ul className="Navbar">
-                    <li className="Navbar"><button onClick={() => this.props.setPath(Links.homePath)}>{names.home}</button></li>
-                    <li className="Navbar"><button onClick={() => this.props.setPath(Links.itemsPath + Links.tvRequest)}>{names.tvs}</button></li>
-                    <li className="Navbar"><button onClick={() => this.props.setPath(Links.itemsPath + Links.phoneRequest)}>{names.phones}</button></li>
-                    <li className="Navbar"><button onClick={() => this.props.setPath(Links.itemsPath + Links.watchRequest)}>{names.watches}</button></li>
-                </ul>
-            </nav>
-
-        );
+              <Menu.Item
+                name={names.watches}
+                //active={activeItem === 'editorials'}
+                onClick={() => this.props.setPath(Links.itemsPath + Links.watchRequest)}>
+                {names.watches}
+              </Menu.Item>
+            </Menu>
+          )
     }
 }
 

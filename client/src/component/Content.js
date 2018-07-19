@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Row from './Row';
+import { Header, Table, Rating, TableCell } from 'semantic-ui-react';
 
 
 class Content extends Component {
@@ -9,7 +9,32 @@ class Content extends Component {
     }
 
     showResults() {
-        return this.props.data.map( (item,key) => <Row name = {item.name} producer = {item.producer} />)
+        return (
+            <Table celled padded>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell>Name</Table.HeaderCell>
+                        <Table.HeaderCell>Producer</Table.HeaderCell>
+                        <Table.HeaderCell>Quality</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+
+                <Table.Body>
+                    {this.props.data.map((item, key) =>
+                        <Table.Row>
+            <Table.Cell>
+                                {item.name}
+                            </Table.Cell>
+                            <Table.Cell>
+                                {item.producer || "NO DATA :("}
+                            </Table.Cell>
+                            <Table.Cell>
+                                <Rating icon='star' defaultRating={3} maxRating={3} />
+                            </Table.Cell>
+
+                        </Table.Row>)}
+                </Table.Body>
+            </Table>)
     }
 
 
