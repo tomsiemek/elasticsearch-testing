@@ -25,9 +25,9 @@ class App extends Component {
     super(props);
 
     this.state = {
-      data: [],
+      data: ["HOME"],
       currentPageNumber: 1,
-      maxNumberOfPages:1,
+      maxNumberOfPages:0,
       currentContentPath: Links.homePath
     }
 
@@ -76,7 +76,7 @@ class App extends Component {
 
       if(path === Links.homePath)
       {
-        this.setState({ data: ["HOME", "SWEET"], currentPageNumber: 0, maxNumberOfPages: 0});
+        this.setState({ data: ["HOME"], currentPageNumber: 0, maxNumberOfPages: 0});
         return;
       }
 
