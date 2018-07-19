@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from "./component/Header";
-import Main from "./component/Main";
+import Content from "./component/Content";
 import Searchbar from './component/Searchbar';
-import Links from './links';
 import axios from 'axios';
+import Links from './links';
 
 class App extends Component {
 
@@ -15,18 +15,52 @@ class App extends Component {
       data: []
     }
 
-    this.onChange = this.onChange.bind(this);
+    this.getSearchDataFromServer = this.getSearchDataFromServer.bind(this);
+    this.getItemDataFromServer = this.getItemDataFromServer.bind(this);
   }
 
-  onChange(event) {
-      console.log("search: " + event.target.value);
 
+    getSearchDataFromServer(phrase) {
 
-    axios.get(Links.searchPath + '/' + event.target.value )
-    .then(data_ => {this.setState({data: data_.data.hits.hits})});
+      console.log("getting search data from server... first raw:");
+
+      axios.get(Links.searchPath + '/' + phrase)
+        .then(data => {console.log(data); return data;})
+        .then(data_ => {this.setState({data: this.transformSearchDataIntoArray(data_)})});
+
       
+      
+    }
 
+    transformSearchDataIntoArray (data) {
+      if(data.data === undefined) {
+        return [];
+      } 
 
+      return data.data.hits.hits.map( (item,key) => {
+        return item._source;
+      } );
+    }
+
+    transformItemDataIntoArray(data) {
+      if(data.data === undefined) {
+        return [];
+      }
+      return data.data.docs;
+    }
+
+    getItemDataFromServer(path) {
+
+      if(path === Links.homePath)
+      {
+        this.setState({ data: ["HOME", "SWEET"]});
+        return;
+      }
+      let request = path + '/page/' + 1
+      console.log(request)
+
+      axios.get(request )
+      .then(data_ => {this.setState({data: this.transformItemDataIntoArray(data_)})});
     }
 
     returnObjects() {
@@ -35,23 +69,20 @@ class App extends Component {
 
   render() {
 
-    // state :{
-      
-    // }
-    console.log("STATE: ");
-    console.log(this.state);
+    
+    console.log("DATA: ");
 
 
-    console.log("State transformed: ")
-    console.log(this.returnObjects());
+    console.log(this.state.data);
+
 
 
     return (
       <div className="App">
-        <Searchbar onChange={this.onChange}/>
-        <Header />
+        <Searchbar onChange={this.getSearchDataFromServer}/>
+        <Header setPath={this.getItemDataFromServer} />
         
-        <Main searchData={this.returnObjects()}/>
+        <Content data={this.state.data}/>
       </div>
 
 

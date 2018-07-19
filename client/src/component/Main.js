@@ -5,17 +5,14 @@ import Phone from './Phone';
 import Watch from './Watch';
 import Home from './Home';
 import Links from '../links';
-import Row from './Row';
+import Search from './Search'
 
 
 class Main extends Component {
 
-    showData(){
-        return this.props.searchData[0].name;
-    }
+    
 
     render() {
-        if(this.props.searchData.length === 0) {
         return (
             <main>
                 <Switch>
@@ -23,16 +20,12 @@ class Main extends Component {
                     <Route path={Links.tvsPath} component={Tv} />
                     <Route path={Links.phonesPath} component={Phone} />
                     <Route path={Links.watchesPath} component={Watch} />
+                    <Route path="/search" component={Search} searchTerm = {this.props.searchTerm} />
                 </Switch>
             </main>
         )
         }
-
-        return this.showData();
-    }
-
-
-    
+  
 }
 
 export default Main;

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom'
 import Links from '../links';
 
 
@@ -18,10 +17,10 @@ class Header extends Component {
 
             <nav className="Navbar" >
                 <ul className="Navbar">
-                    <li className="Navbar"><Link to={Links.homePath}>{names.home}</Link></li>
-                    <li className="Navbar"><Link to={Links.tvsPath}>{names.tvs}</Link></li>
-                    <li className="Navbar"><Link to={Links.phonesPath}>{names.phones}</Link></li>
-                    <li className="Navbar"><Link to={Links.watchesPath}>{names.watches}</Link></li>
+                    <li className="Navbar"><button onClick={() => this.props.setPath(Links.homePath)}>{names.home}</button></li>
+                    <li className="Navbar"><button onClick={() => this.props.setPath(Links.itemsPath + Links.tvRequest)}>{names.tvs}</button></li>
+                    <li className="Navbar"><button onClick={() => this.props.setPath(Links.itemsPath + Links.phoneRequest)}>{names.phones}</button></li>
+                    <li className="Navbar"><button onClick={() => this.props.setPath(Links.itemsPath + Links.watchRequest)}>{names.watches}</button></li>
                 </ul>
             </nav>
 
