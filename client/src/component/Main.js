@@ -10,18 +10,12 @@ import Row from './Row';
 
 class Main extends Component {
 
-    showData(data){
-        if(data == null) {
-            return (<div>NO DATA :(</div>)
-        }
-
-        return this.state.data.docs.map( (item,key) => (
-            <Row name={item.name} producer={item.producer}/>
-        )) ;
+    showData(){
+        return this.props.searchData[0].name;
     }
 
     render() {
-        
+        if(this.props.searchData.length === 0) {
         return (
             <main>
                 <Switch>
@@ -32,6 +26,9 @@ class Main extends Component {
                 </Switch>
             </main>
         )
+        }
+
+        return this.showData();
     }
 
 
