@@ -13,12 +13,9 @@ const Buttons = (props) => {
   for(let i = 0; i < props.maxNumberOfPages; i++) {
     buttons.push(i+1);
   }
-
   return buttons.map( (item,key) => {
     return <PageButton number = {item} onClick={props.onClick}/>
   } )
-
-
 }
 
 
@@ -54,9 +51,7 @@ class App extends Component {
       axios.get(Links.searchPath + '/' + phrase)
         .then(data => {console.log(data); return data;})
         .then(data_ => {this.setState({data: this.transformSearchDataIntoArray(data_)})});
-
-      
-      
+    
     }
 
     transformSearchDataIntoArray (data) {
@@ -109,20 +104,13 @@ class App extends Component {
     }
 
   render() {
-
-    
     console.log("DATA: ");
-
-
     console.log(this.state.data);
-
-
 
     return (
       <div className="App">
         <Searchbar onChange={this.getSearchDataFromServer}/>
-        <Header setPath={this.getContentPath} />
-        
+        <Header setPath={this.getContentPath} />       
         <Content data={this.state.data}/>
         <Buttons maxNumberOfPages={this.state.maxNumberOfPages} onClick={this.changeCurrentPage}/>
       </div>
