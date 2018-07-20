@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Tv from './Tv';
-import Phone from './Phone';
-import Watch from './Watch';
+import Tvs from './Tvs';
+import Phones from './Phones';
+import Watches from './Watches';
 import Home from './Home';
 import Links from '../links';
-import Search from './Search'
-
-
+import Search from './Search';
+import NoResult from './NoResult';
 class Main extends Component {
 
     
@@ -17,10 +16,11 @@ class Main extends Component {
             <main>
                 <Switch>
                     <Route exact path={Links.homePath} component={Home} />
-                    <Route path={Links.tvsPath} component={Tv} />
-                    <Route path={Links.phonesPath} component={Phone} />
-                    <Route path={Links.watchesPath} component={Watch} />
-                    <Route path="/search" component={Search} searchTerm = {this.props.searchTerm} />
+                    <Route path={Links.tvsPath} component={Tvs} />
+                    <Route path={Links.phonesPath} component={Phones} />
+                    <Route path={Links.watchesPath} component={Watches} />
+                    <Route path={Links.searchPath} component={Search} />
+                    <Route path={Links.anyPath} component={NoResult}/>
                 </Switch>
             </main>
         )

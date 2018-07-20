@@ -6,9 +6,9 @@ import Searchbar from './component/Searchbar';
 import axios from 'axios';
 import Links from './links';
 import PageButton from './component/PageButton';
-
-
-
+import Tvs from './component/Tvs';
+import Main from './component/Main';
+import history from './history';
 
 const Buttons = (props) => {
   var buttons = [];
@@ -37,6 +37,16 @@ class App extends Component {
     this.getItemDataFromServer = this.getItemDataFromServer.bind(this);
     this.getContentPath = this.getContentPath.bind(this);
     this.changeCurrentPage = this.changeCurrentPage.bind(this);
+    this.search = this.search.bind(this);
+    this.searchQuery = this.searchQuery.bind(this);
+  }
+
+  searchQuery(phrase) {
+    return Links.searchQueryPath + '/' + phrase;
+  }
+
+  search(phrase) {
+    history.push(this.searchQuery(phrase));
   }
 
     changeCurrentPage(newPage) {
@@ -116,9 +126,10 @@ class App extends Component {
     return (
       <div className="App">
         <Header setPath={this.getContentPath} />
-        <Searchbar onChange={this.getSearchDataFromServer}/>
-               
-        <Content data={this.state.data}/>
+        <Searchbar onChange={this.search}/>
+        
+        <Main/>
+        
         <Buttons maxNumberOfPages={this.state.maxNumberOfPages} onClick={this.changeCurrentPage}/>
       </div>
 

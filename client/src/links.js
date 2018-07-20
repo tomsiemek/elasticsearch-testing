@@ -4,8 +4,10 @@ module.exports = {
     watchesPath: "/watch",
     tvsPath: '/tv',
     itemsPath: 'http://localhost:3000/items/type',
-    searchPath: 'http://localhost:3000/items/search',
+    searchPath: '/search/:phrase',
     phoneRequest: '/PHONE',
     tvRequest: '/TV',
-    watchRequest: '/WATCH'
+    watchRequest: '/WATCH',
+    anyPath: "*",
+    searchQueryPath: '/search'
 };

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Links from '../links';
 import {Menu} from 'semantic-ui-react';
+import {Link} from 'react-router-dom'; 
 
 const names = {
     home: "Home",
@@ -15,32 +16,20 @@ class Header extends Component {
     render() {
         return (
             <Menu>
-              <Menu.Item
-                name={names.home}
-                //active={activeItem === 'editorials'}
-                onClick={() => this.props.setPath(Links.homePath)}>
-                {names.home}
+              <Menu.Item>
+                <Link to={Links.homePath}>{names.home}</Link>
               </Menu.Item>
       
-              <Menu.Item 
-                name={names.tvs} 
-                //active={activeItem === 'reviews'} 
-                onClick={() => this.props.setPath(Links.itemsPath + Links.tvRequest)}>
-                {names.tvs}
+              <Menu.Item>
+              <Link to={Links.phonesPath}>{names.phones}</Link>
               </Menu.Item>
       
-              <Menu.Item
-                name={names.phones}
-                //active={activeItem === 'upcomingEvents'}
-                onClick={() => this.props.setPath(Links.itemsPath + Links.phoneRequest)}>
-                {names.phones}
+              <Menu.Item>
+              <Link to={Links.tvsPath}>{names.tvs}</Link>
               </Menu.Item>
 
-              <Menu.Item
-                name={names.watches}
-                //active={activeItem === 'editorials'}
-                onClick={() => this.props.setPath(Links.itemsPath + Links.watchRequest)}>
-                {names.watches}
+              <Menu.Item>
+              <Link to={Links.watchesPath}>{names.watches}</Link>
               </Menu.Item>
             </Menu>
           )
