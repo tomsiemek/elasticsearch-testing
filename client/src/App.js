@@ -8,6 +8,8 @@ import Links from './links';
 import PageButton from './component/PageButton';
 
 
+
+
 const Buttons = (props) => {
   var buttons = [];
   for(let i = 0; i < props.maxNumberOfPages; i++) {
@@ -96,8 +98,12 @@ class App extends Component {
 
       axios.get(path )
       .then(data => {console.log(data); return data;})
-      .then(data_ => {this.setState({data: this.transformItemDataIntoArray(data_), maxNumberOfPages: this.getMaxNumberOfPages(data_)})});
+      .then(data_ => {this.setState({data: this.transformItemDataIntoArray(data_), maxNumberOfPages: this.getMaxNumberOfPages(data_)})})
+
+      
+
     }
+
 
     returnObjects() {
       return this.state.data.map((item,key) => item._source);
