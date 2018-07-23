@@ -100,6 +100,7 @@ class Item extends Component {
         return ( 
             <div>
             { PageContent(this.state.data)}
+            <br/>
         <Buttons maxNumberOfPages={this.state.maxNumberOfPages} onClick={this.changeCurrentPage}/>
 
         

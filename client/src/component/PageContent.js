@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Image } from 'semantic-ui-react';
+import {Image, Button, Card} from 'semantic-ui-react';
 import errorImage from '../images/sadFace.png';
 
 const PageContent = (data) => {
@@ -16,35 +16,30 @@ const PageContent = (data) => {
     }
 
 
-    return (
-        <Table fixed>
-            <Table.Header>
-                <Table.Row>
-                    <Table.HeaderCell>Picture</Table.HeaderCell>
-                    <Table.HeaderCell>Name</Table.HeaderCell>
-                    <Table.HeaderCell>Price[$]</Table.HeaderCell>
-                    <Table.HeaderCell>Amount in storage</Table.HeaderCell>
-                </Table.Row>
-            </Table.Header>
-            <Table.Body>
-                {data.map((item, key) =>
-                    <Table.Row>
-                        <Table.Cell>
-                            <Image src={errorImage} Small fluid onError={(e) => { e.target.src = errorImage }} />
-                        </Table.Cell>
-                        <Table.Cell>
-                            {item.name}
-                        </Table.Cell>
-                        <Table.Cell>
-                            {item.price + ".00" || "NO DATA :("}
-                        </Table.Cell>
-                        <Table.Cell>
-                            {item.amount || "NO DATA :("}
-                        </Table.Cell>
 
-                    </Table.Row>)}
-            </Table.Body>
-        </Table>
+
+    return (
+        <Card.Group stackable itemsPerRow = {5}>
+        {data.map( item =>
+        <Card>
+            <Image src={errorImage} />
+            <Card.Content>
+                <Card.Header>{item.name}</Card.Header>
+                <Card.Meta>
+                    <span className='date'>{item.producer}</span>
+                </Card.Meta>
+                <Card.Description> {item.price || "n/d"} PLN  <br/> Amount: {item.amount || "n/d"} </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+        <div className='ui two buttons'>
+          <Button basic color='blue'>
+            BUY
+          </Button>
+        </div>
+      </Card.Content>
+        </Card>
+        )}
+        </Card.Group>
     );
 }
 

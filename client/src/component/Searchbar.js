@@ -6,7 +6,7 @@ class Searchbar extends Component {
   render() {
     return (
       <div class="right">
-        <Input type="text" placeholder="Szukaj..." onChange={ (event) => {
+        <Input type="text" placeholder="Search.." onChange={ (event) => {
           console.log("Searchphrase in searchbar: ");
           console.log(event.target.value); 
           return this.props.onChange(event.target.value);}

@@ -15,7 +15,7 @@ class Header extends Component {
 
     render() {
         return (
-            <Menu>
+            <Menu stackable>
               <Menu.Item>
                 <Link to={Links.homePath}>{names.home}</Link>
               </Menu.Item>
