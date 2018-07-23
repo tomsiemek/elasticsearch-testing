@@ -1,8 +1,10 @@
 import React from 'react';
+import Item from './Item';
+import Links from '../links';
 
 const Tvs = () => {
     return (
-        <div>tvs</div>
+        <Item request={Links.tvRequest}/>
     )
 }
 

@@ -10,17 +10,6 @@ import Tvs from './component/Tvs';
 import Main from './component/Main';
 import history from './history';
 
-const Buttons = (props) => {
-  var buttons = [];
-  for(let i = 0; i < props.maxNumberOfPages; i++) {
-    buttons.push(i+1);
-  }
-  return buttons.map( (item,key) => {
-    return <PageButton number = {item} onClick={props.onClick}/>
-  } )
-}
-
-
 class App extends Component {
 
   constructor(props) {
@@ -42,10 +31,14 @@ class App extends Component {
   }
 
   searchQuery(phrase) {
-    return Links.searchQueryPath + '/' + phrase;
+    console.log("SEARCH QUERY:");
+    console.log( Links.searchQueryPath + '?q=' + phrase);
+    return Links.searchQueryPath + '?q=' + phrase;
   }
 
   search(phrase) {
+    console.log("INA APPJS: ");
+    console.log(phrase);
     history.push(this.searchQuery(phrase));
   }
 
@@ -120,17 +113,13 @@ class App extends Component {
     }
 
   render() {
-    console.log("DATA: ");
-    console.log(this.state.data);
 
     return (
       <div className="App">
-        <Header setPath={this.getContentPath} />
+        <Header />
         <Searchbar onChange={this.search}/>
         
         <Main/>
-        
-        <Buttons maxNumberOfPages={this.state.maxNumberOfPages} onClick={this.changeCurrentPage}/>
       </div>
 
 

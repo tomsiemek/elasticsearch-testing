@@ -2,7 +2,7 @@ import React from 'react';
 
 const NoResult = () => {
     return (
-        <div> NO RESULT :(</div>
+        <div> NOTHING HERE :(</div>
     )
 }
 

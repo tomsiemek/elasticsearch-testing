@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Content from './Content';
+import Content from './Content'; 
+const queryString = require('query-string');
+
 
 
 const isNull = (a) => {
@@ -21,11 +23,24 @@ class Search extends Component  {
     }
 
     componentDidMount() {
-        this.getSearchDataFromServer(this.props.phrase);
+        console.log("phrase in DidMount: ");
+        let parsed = queryString.parse(this.props.location.search);
+        console.log(parsed.q);
+        this.getSearchDataFromServer(parsed.q);
+    }
+
+    componentWillReceiveProps() {
+        console.log("phrase in DidMount: ");
+        let parsed = queryString.parse(this.props.location.search);
+        console.log(parsed.q);
+        this.getSearchDataFromServer(parsed.q);
     }
     
 
     getSearchDataFromServer(phrase) {
+
+        console.log("Searching phrase: ");
+        console.log(phrase);
 
         axios.get( "http://localhost:3000/items/search" + '/' + phrase)
         .then(data_ => this.setState( {data: this.transformSearchDataIntoArray(data_) }))
@@ -35,6 +50,9 @@ class Search extends Component  {
       }
 
       transformSearchDataIntoArray (data) {
+        console.log("DATA: ");
+        console.log(data);
+
         if(data.data === undefined) {
           return [];
         } 

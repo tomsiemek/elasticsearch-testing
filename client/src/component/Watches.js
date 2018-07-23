@@ -1,8 +1,10 @@
 import React from 'react';
+import Item from './Item';
+import Links from '../links';
 
 const Watches = () => {
     return (
-        <div>Watches</div>
+        <Item request={Links.watchRequest}/>
     );
 }
 
