@@ -3,6 +3,11 @@ import axios from 'axios';
 import { Table, Rating, Container} from 'semantic-ui-react';
 import Links from '../links';
 import Buttons from './Buttons';
+import history from '../history';
+import _ from 'lodash';
+import PageContent from './PageContent';
+import {Switch, Route} from 'react-router-dom';
+import queryString from 'query-string';
 
 class Item extends Component {
     constructor(props) {
@@ -18,6 +23,9 @@ class Item extends Component {
     }
 
     componentDidMount() {
+        let parsed = queryString.parse(this.props.location);
+        console.log("Parsed: ");
+        console.log(parsed);
         this.setState({request: this.props.request});
         this.getItemDataFromServer(Links.itemsPath + this.props.request + '/page/' + this.state.currentPageNumber);
     }
@@ -31,9 +39,14 @@ class Item extends Component {
 
       changeCurrentPage(newPage) {
         this.setState({currentPageNumber: newPage});
+        //history.push(this.pageQuery(newPage)); //were trying to change url depending on page
         let path = Links.itemsPath + this.state.request + '/page/' + newPage; 
         console.log(path);
         this.getItemDataFromServer(path);
+      }
+
+      pageQuery(page) {
+        return this.state.request + '?page=' + page;
       }
     
     getItemDataFromServer(path) {
@@ -57,8 +70,7 @@ class Item extends Component {
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>Name</Table.HeaderCell>
-                        <Table.HeaderCell>Producer</Table.HeaderCell>
-                        <Table.HeaderCell>Quality</Table.HeaderCell>
+                        <Table.HeaderCell>Price</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
@@ -69,10 +81,7 @@ class Item extends Component {
                                 {item.name}
                             </Table.Cell>
                             <Table.Cell>
-                                {item.producer || "NO DATA :("}
-                            </Table.Cell>
-                            <Table.Cell>
-                                <Rating icon='star' defaultRating={3} maxRating={3} />
+                                {item.price || "NO DATA :("}
                             </Table.Cell>
 
                         </Table.Row>)}
@@ -88,12 +97,14 @@ class Item extends Component {
             return <div>something is no yes</div>;
         }
 
-        return ( <div>
-            { this.showResults()}
+        return ( 
+            <div>
+            { PageContent(this.state.data)}
         <Buttons maxNumberOfPages={this.state.maxNumberOfPages} onClick={this.changeCurrentPage}/>
 
-        </div>)
-
+        
+        </div>
+        )
     }
 
 

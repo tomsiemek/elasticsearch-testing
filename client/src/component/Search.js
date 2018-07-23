@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import Content from './Content'; 
+import PageContent from './PageContent';
 const queryString = require('query-string');
+
+
 
 
 
@@ -44,8 +46,6 @@ class Search extends Component  {
 
         axios.get( "http://localhost:3000/items/search" + '/' + phrase)
         .then(data_ => this.setState( {data: this.transformSearchDataIntoArray(data_) }))
-    
-    //      .then(data_ => {this.setState({data: this.transformSearchDataIntoArray(data_)})});
       
       }
 
@@ -57,19 +57,20 @@ class Search extends Component  {
           return [];
         } 
     
-        return data.data.hits.hits.map( (item,key) => {
-          return item._source;
-        } );
+        return data.data.hits.hits.map( (item,key) => item._source);
       }
 
 
 
 
     render() {
-        if(this.state.data.length === 0){
+        if(this.state.data.length === 0 || this.state.data == undefined){
             return (<div>NO RESULTS FOR THIS </div>);
         }
-        return (<Content data={this.state.data}/>);
+
+        console.log("DATA FOR IN SEARCH:");
+        console.log(this.state.data);
+        return (<PageContent data={this.state.data}/>);
     }
 }
 
