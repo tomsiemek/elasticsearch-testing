@@ -5,9 +5,9 @@ module.exports = {
     tvsPath: '/tv',
     itemsPath: 'http://localhost:3000/items/type',
     searchPath: '/search',
-    phoneRequest: '/PHONE',
-    tvRequest: '/TV',
-    watchRequest: '/WATCH',
+    phoneRequest: '/phone',
+    tvRequest: '/tv',
+    watchRequest: '/watch',
     anyPath: "*",
     searchQueryPath: '/search'
 };

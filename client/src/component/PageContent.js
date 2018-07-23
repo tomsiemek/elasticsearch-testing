@@ -1,5 +1,6 @@
 import React from 'react';
-import { Table } from 'semantic-ui-react';
+import { Table, Image } from 'semantic-ui-react';
+import errorImage from '../images/sadFace.png';
 
 const PageContent = (data) => {
 
@@ -16,16 +17,29 @@ const PageContent = (data) => {
 
 
     return (
-        <Table celled>
-
+        <Table fixed>
+            <Table.Header>
+                <Table.Row>
+                    <Table.HeaderCell>Picture</Table.HeaderCell>
+                    <Table.HeaderCell>Name</Table.HeaderCell>
+                    <Table.HeaderCell>Price[$]</Table.HeaderCell>
+                    <Table.HeaderCell>Amount in storage</Table.HeaderCell>
+                </Table.Row>
+            </Table.Header>
             <Table.Body>
                 {data.map((item, key) =>
                     <Table.Row>
                         <Table.Cell>
+                            <Image src={errorImage} Small fluid onError={(e) => { e.target.src = errorImage }} />
+                        </Table.Cell>
+                        <Table.Cell>
                             {item.name}
                         </Table.Cell>
                         <Table.Cell>
-                            {item.price || "NO DATA :("}
+                            {item.price + ".00" || "NO DATA :("}
+                        </Table.Cell>
+                        <Table.Cell>
+                            {item.amount || "NO DATA :("}
                         </Table.Cell>
 
                     </Table.Row>)}
