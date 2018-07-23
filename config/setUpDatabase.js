@@ -2,8 +2,11 @@
 const fetch = require('node-fetch');
 const Item = require("../models/ItemObject");
 
-const requestURI = 'http://localhost:5000/api/items';
+const requestURI = 'http://localhost:5000/items';
 
+const itemsURI = "/items";
+
+var faker = require('faker');
 
 function deleteHeader() {
     return {
@@ -13,13 +16,13 @@ function deleteHeader() {
 
 function deleteRecords(records) {
     for(let i = 0; i < records.length; i++) {
-        fetch('/api/items/' + records[i].id, deleteHeader())
+        fetch(requestURI + records[i].id, deleteHeader())
         .then(resp => resp.json())
         .catch(e => console.log(e));
     }
 }
 function clearDB() {
-    fetch('/api/items')
+    fetch(requestURI)
         .then(data => { deleteRecords(data) })
         .catch(e => console.log(e))
 }
@@ -49,21 +52,26 @@ function addToDB(item) {
 function addProducts(item, amount) {
     for(let i = 0; i < amount;i++) {
     addToDB(new Item(item.name + i, item.type, item.producer));
+    }
 }
+
+function addRandomItems(amount, type) {
+    for(let i = 0; i < amount;i++) {
+        addToDB(new Item( 
+            faker.commerce.productName(),
+            type,
+            faker.company.companyName(),
+            faker.commerce.price(),
+            faker.image.technics(),
+            faker.random.number() ));
+        
+    }
 }
 
 //clearDB();
-const numberOfProducts = 20;
-
-let producer = "ALM Factory";
-
-let tvs = new Item("TV", "TV", producer);
-let phones = new Item("PHONE", "PHONE", producer);
-let watches = new Item("WATCH", "WATCH", producer);
-
-addProducts(tvs,numberOfProducts);
-addProducts(phones,numberOfProducts);
-addProducts(watches,numberOfProducts);
-
+ const numberOfProducts = 60;
+ addRandomItems(numberOfProducts, 'tv');
+addRandomItems(numberOfProducts, 'phone');
+addRandomItems(numberOfProducts, 'watch');
 
 
