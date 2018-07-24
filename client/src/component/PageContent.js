@@ -1,6 +1,8 @@
 import React from 'react';
 import {Image, Button, Card} from 'semantic-ui-react';
 import errorImage from '../images/sadFace.png';
+import {Link, NavLink} from 'react-router-dom'
+import Links from '../links';
 
 const PageContent = (data) => {
 
@@ -12,7 +14,7 @@ const PageContent = (data) => {
     console.log(data);
 
     if (data.data !== undefined) {
-         data = data.data;
+          data = data.data;
     }
 
 
@@ -24,7 +26,8 @@ const PageContent = (data) => {
         <Card>
             <Image src={item.imageUrl || errorImage} onError={(e)=>{e.target.src=errorImage}} />
             <Card.Content>
-                <Card.Header>{item.name}</Card.Header>
+                
+                <Card.Header><Link to={Links.productPath + '?id=' + item._id}>{item.name}</Link></Card.Header>
                 <Card.Meta>
                     <span className='date'>{item.producer}</span>
                 </Card.Meta>

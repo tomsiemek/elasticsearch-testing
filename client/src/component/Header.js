@@ -15,9 +15,9 @@ class Header extends Component {
 
     render() {
         return (
-            <Menu stackable>
+            <Menu stackable borderless size="large">
               <Menu.Item>
-                <Link to={Links.homePath}><Icon name="home"/>{names.home}</Link>
+                <Link color="" to={Links.homePath}><Icon name="home"/>{names.home}</Link>
               </Menu.Item>
       
               <Menu.Item>

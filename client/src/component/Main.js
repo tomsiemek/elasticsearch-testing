@@ -7,6 +7,7 @@ import Home from './Home';
 import Links from '../links';
 import Search from './Search';
 import NoResult from './NoResult';
+import Product from './Product'
 class Main extends Component {
 
     
@@ -20,6 +21,7 @@ class Main extends Component {
                     <Route path={Links.phonesPath} component={Phones} />
                     <Route path={Links.watchesPath} component={Watches} />
                     <Route path={Links.searchPath} component={Search} />
+                    <Route path={Links.productPath} component={Product}/>
                     <Route path={Links.anyPath} component={NoResult}/>
                 </Switch>
             </main>
