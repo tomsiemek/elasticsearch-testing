@@ -18,6 +18,12 @@ router.get('/', (req,res) => {
         .then(items => res.json(items));
 }); // already on api/items
 
+router.get('/id/:id', (req,res) => {
+    console.log("GET REQUEST ID: " + req.params.id + ' ' + new Date().toLocaleString());
+    Item.find({_id: req.params.id})
+        .then(items => res.json(items));
+});
+
 
 router.get('/type/:type', (req,res) => {
     console.log("GET REQUEST TYPE " + new Date().toLocaleString());
