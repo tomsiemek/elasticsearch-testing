@@ -27,6 +27,7 @@
     "reactive-search": "0.0.3"
   },
   "devDependencies": {
+    "axios": "^0.18.0",
     "node-fetch": "^2.1.2",
     "supertest": "^3.1.0",
     "tape": "^4.9.1"

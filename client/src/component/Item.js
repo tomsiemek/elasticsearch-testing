@@ -1,12 +1,8 @@
 import  React,{Component} from 'react';
 import axios from 'axios';
-import { Table, Rating, Container} from 'semantic-ui-react';
 import Links from '../links';
 import Buttons from './Buttons';
-import history from '../history';
-import _ from 'lodash';
 import PageContent from './PageContent';
-import {Switch, Route} from 'react-router-dom';
 import queryString from 'query-string';
 
 class Item extends Component {
@@ -59,41 +55,16 @@ class Item extends Component {
       }
 
       getMaxNumberOfPages(data) {
-        if(data != undefined)
+        if(data !== undefined)
             return data.data.pages;
         return 0;
       }
-
-      showResults() {
-        return (
-            <Table celled padded>
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>Name</Table.HeaderCell>
-                        <Table.HeaderCell>Price</Table.HeaderCell>
-                    </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                    {this.state.data.map((item, key) =>
-                        <Table.Row>
-            <Table.Cell>
-                                {item.name}
-                            </Table.Cell>
-                            <Table.Cell>
-                                {item.price || "NO DATA :("}
-                            </Table.Cell>
-
-                        </Table.Row>)}
-                </Table.Body>
-            </Table>)
-    }
 
     render() {
         console.log("IN ITEM: ");
         console.log(this.state.data);
 
-        if(this.state.data == undefined) {
+        if(this.state.data === undefined) {
             return <div>something is no yes</div>;
         }
 

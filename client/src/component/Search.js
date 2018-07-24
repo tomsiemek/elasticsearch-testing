@@ -3,18 +3,6 @@ import axios from 'axios';
 import PageContent from './PageContent';
 const queryString = require('query-string');
 
-
-
-
-
-const isNull = (a) => {
-    if(a !== undefined) {
-        return a.phrase;
-    }
-    else return ":(";
-
-}
-
 class Search extends Component  {
     constructor(props) {
         super(props);
@@ -44,7 +32,7 @@ class Search extends Component  {
         console.log("Searching phrase: ");
         console.log(phrase);
 
-        axios.get( "http://localhost:3000/items/search" + '/' + phrase)
+        axios.get( "http://localhost:3000/items/search/" + phrase)
         .then(data_ => this.setState( {data: this.transformSearchDataIntoArray(data_) }))
       
       }
@@ -55,8 +43,7 @@ class Search extends Component  {
 
         if(data.data === undefined) {
           return [];
-        } 
-    
+        }   
         return data.data.hits.hits.map( (item,key) => item._source);
       }
 
@@ -64,7 +51,7 @@ class Search extends Component  {
 
 
     render() {
-        if(this.state.data.length === 0 || this.state.data == undefined){
+        if(this.state.data.length === 0 || this.state.data === undefined){
             return (<div>NO RESULTS FOR THIS </div>);
         }
 

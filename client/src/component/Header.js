@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Links from '../links';
-import {Menu} from 'semantic-ui-react';
+import {Menu, Icon} from 'semantic-ui-react';
 import {Link} from 'react-router-dom'; 
 
 const names = {
@@ -17,19 +17,19 @@ class Header extends Component {
         return (
             <Menu stackable>
               <Menu.Item>
-                <Link to={Links.homePath}>{names.home}</Link>
+                <Link to={Links.homePath}><Icon name="home"/>{names.home}</Link>
               </Menu.Item>
       
               <Menu.Item>
-              <Link to={Links.phonesPath}>{names.phones}</Link>
+              <Link to={Links.phonesPath}><Icon name="mobile"/>{names.phones}</Link>
               </Menu.Item>
       
               <Menu.Item>
-              <Link to={Links.tvsPath}>{names.tvs}</Link>
+              <Link to={Links.tvsPath}><Icon name="tv"/>{names.tvs}</Link>
               </Menu.Item>
 
               <Menu.Item>
-              <Link to={Links.watchesPath}>{names.watches}</Link>
+              <Link to={Links.watchesPath}><Icon name="clock"/>{names.watches}</Link>
               </Menu.Item>
             </Menu>
           )

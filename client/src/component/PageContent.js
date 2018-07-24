@@ -12,7 +12,7 @@ const PageContent = (data) => {
     console.log(data);
 
     if (data.data !== undefined) {
-        var data = data.data;
+         data = data.data;
     }
 
 
@@ -22,7 +22,7 @@ const PageContent = (data) => {
         <Card.Group stackable itemsPerRow = {5}>
         {data.map( item =>
         <Card>
-            <Image src={errorImage} />
+            <Image src={item.imageUrl || errorImage} onError={(e)=>{e.target.src=errorImage}} />
             <Card.Content>
                 <Card.Header>{item.name}</Card.Header>
                 <Card.Meta>
