@@ -8,9 +8,7 @@ class Searchbar extends Component {
     return (
 
       <div className="right">
-        <Input type="text" size="big" placeholder="Search.." onChange={ (event) => {
-          console.log("Searchphrase in searchbar: ");
-          console.log(event.target.value); 
+        <Input type="text" size="big" placeholder="Search.." onChange={ (event) => { 
           return this.props.onChange(event.target.value); }
           } autoFocus />
       </div>

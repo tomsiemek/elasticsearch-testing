@@ -19,12 +19,7 @@ class Item extends Component {
 
     componentDidMount() {
         let parsed = this.parsePageNumber(this.props.location.search);
-        console.log("Parsed: ");
-        console.log(parsed);
-
-        //this clunky piece of code try to deal with async updating of props
-        
-
+        //this clunky piece of code try to deal with async updating of props   
         let page = 1;
         if(parsed !== undefined) {
             page = parsed;
@@ -75,9 +70,6 @@ class Item extends Component {
       }
 
     render() {
-        console.log("IN ITEM: ");
-        console.log(this.state.data);
-
         if(this.state.data === undefined) {
             return <div>something is no yes</div>;
         }

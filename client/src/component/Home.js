@@ -1,8 +1,8 @@
 import React from 'react';
-import {Header, Icon, Input} from 'semantic-ui-react';
+import {Header, Icon, Input, Button} from 'semantic-ui-react';
 
-import {Link} from 'react-router-dom';
-import Links from '../links';
+ import {Link} from 'react-router-dom';
+ import Links from '../links';
 //const homePageImageUrl = "https://picsum.photos/3670/2462?image=20";
 
 const Home = (props) => {
@@ -29,7 +29,12 @@ const Home = (props) => {
                 </Header>
                 <br/>
 
-                <Input size='massive' icon='search' placeholder='Search...' as={Link} to={Links.searchPath + '?q='}/>
+                {//<Input size='massive' icon='search' placeholder='Search...' />
+                }
+                <Button size='massive' as={Link} to={Links.phonesPath} >Phones</Button>
+                <Button size='massive' as={Link} to={Links.tvsPath} >Tvs</Button>
+                <Button size='massive' as={Link} to={Links.watchesPath} >Watches</Button>
+                
             </div>
         </div>
     )
