@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, Button, Card} from 'semantic-ui-react';
 import errorImage from '../images/sadFace.png';
-import {Link, NavLink} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import Links from '../links';
 
 const PageContent = (data) => {
