@@ -9,9 +9,6 @@ import Search from './Search';
 import NoResult from './NoResult';
 import Product from './Product'
 class Main extends Component {
-
-    
-
     render() {
         return (
             <main>

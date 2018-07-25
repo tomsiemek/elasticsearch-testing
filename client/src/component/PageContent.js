@@ -17,9 +17,6 @@ const PageContent = (data) => {
           data = data.data;
     }
 
-
-
-
     return (
         <Card.Group stackable itemsPerRow = {5}>
         {data.map( item =>

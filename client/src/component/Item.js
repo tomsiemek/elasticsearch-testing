@@ -18,19 +18,11 @@ class Item extends Component {
     }
 
     componentDidMount() {
-        let parsed = this.parsePageNumber(this.props.location.search);
-        //this clunky piece of code try to deal with async updating of props   
+        let parsed = this.parsePageNumber(this.props.location.search);  
         let page = 1;
         if(parsed !== undefined) {
             page = parsed;
         }
-
-        //if(this.state.currentPageNumber !== 1){
-        //     while (parsed === this.state.currentPageNumber) {
-        //         parsed = this.parsePageNumber(this.props.location.search);
-        //     }
-        // }
-
         this.setState({request: this.props.request, currentPageNumber: page}, async () => {
             this.getItemDataFromServer(Links.itemsPath + this.props.request + '/page/' + page);
         });
@@ -40,9 +32,7 @@ class Item extends Component {
 
         this.componentDidMount();
     }
-
-    c
-
+    
     transformItemDataIntoArray(data) {
         if(data.data === undefined) {
           return [];

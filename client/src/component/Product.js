@@ -23,11 +23,8 @@ class Product extends Component {
 
 
     componentDidMount() {
-        console.log(this.props)
         let parsed = queryString.parse(this.props.location.search);
         let id = parsed.id;
-        console.log("ID: ");
-        console.log(id);
         this.getProductFromServer(id);
         
     }

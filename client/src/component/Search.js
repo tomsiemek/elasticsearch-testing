@@ -10,9 +10,7 @@ class Search extends Component  {
         this.state = {
             data: []
         }
-    }
-
-    
+    }   
 
     componentDidMount() {
         let parsed = queryString.parse(this.props.location.search);
@@ -35,9 +33,6 @@ class Search extends Component  {
         }   
         return data.data.hits.hits.map( (item,key) => item._source);
       }
-
-
-
 
     render() {
         if(this.state.data.length === 0 || this.state.data === undefined){
