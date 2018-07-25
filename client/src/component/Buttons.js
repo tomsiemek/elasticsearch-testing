@@ -7,7 +7,7 @@ const Buttons = (props) => {
       buttons.push(i+1);
     }
     return buttons.map( (item,key) => {
-      return <PageButton number = {item} onClick={props.onClick}/>
+      return <PageButton number = {item} request = {props.request}/>
     } )
   }
 

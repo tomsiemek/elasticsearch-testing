@@ -6,11 +6,6 @@ import PageContent from './PageContent';
 import queryString from 'query-string';
 
 class Item extends Component {
-    constructor(props) {
-        super(props);
-
-        this.changeCurrentPage = this.changeCurrentPage.bind(this);
-    }
     state = {
         data: [],
         request: '',
@@ -18,32 +13,46 @@ class Item extends Component {
         maxNumberOfPages: 0
     }
 
+    parsePageNumber(search) {
+        return queryString.parse(search).page;
+    }
+
     componentDidMount() {
-        let parsed = queryString.parse(this.props.location.search);
+        let parsed = this.parsePageNumber(this.props.location.search);
         console.log("Parsed: ");
         console.log(parsed);
+
+        //this clunky piece of code try to deal with async updating of props
+        
+
         let page = 1;
-        if(parsed.page !== undefined) {
-            page = parsed.page;
+        if(parsed !== undefined) {
+            page = parsed;
         }
 
-        this.setState({request: this.props.request, currentPageNumber: page});
-        this.getItemDataFromServer(Links.itemsPath + this.props.request + '/page/' + page);
+        //if(this.state.currentPageNumber !== 1){
+        //     while (parsed === this.state.currentPageNumber) {
+        //         parsed = this.parsePageNumber(this.props.location.search);
+        //     }
+        // }
+
+        this.setState({request: this.props.request, currentPageNumber: page}, async () => {
+            this.getItemDataFromServer(Links.itemsPath + this.props.request + '/page/' + page);
+        });
     }
+
+    componentWillReceiveProps() {
+
+        this.componentDidMount();
+    }
+
+    c
 
     transformItemDataIntoArray(data) {
         if(data.data === undefined) {
           return [];
         }
         return data.data.docs;
-      }
-
-      changeCurrentPage(newPage) {
-        this.setState({currentPageNumber: newPage});
-        //history.push(this.pageQuery(newPage)); //were trying to change url depending on page
-        let path = Links.itemsPath + this.state.request + '/page/' + newPage; 
-        console.log(path);
-        this.getItemDataFromServer(path);
       }
 
       pageQuery(page) {
@@ -77,7 +86,7 @@ class Item extends Component {
             <div>
             { PageContent(this.state.data)}
             <br/>
-        <Buttons maxNumberOfPages={this.state.maxNumberOfPages} onClick={this.changeCurrentPage}/>
+        <Buttons maxNumberOfPages={this.state.maxNumberOfPages} request={this.state.request}/>
 
         
         </div>
