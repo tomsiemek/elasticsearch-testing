@@ -2,9 +2,9 @@ import React from 'react';
 import Item from './Item';
 import Links from '../links';
 
-const Watches = () => {
+const Watches = (props) => {
     return (
-        <Item request={Links.watchRequest}/>
+        <Item request={Links.watchRequest} location = {props.location}/>
     );
 }
 

@@ -19,11 +19,16 @@ class Item extends Component {
     }
 
     componentDidMount() {
-        let parsed = queryString.parse(this.props.location);
+        let parsed = queryString.parse(this.props.location.search);
         console.log("Parsed: ");
         console.log(parsed);
-        this.setState({request: this.props.request});
-        this.getItemDataFromServer(Links.itemsPath + this.props.request + '/page/' + this.state.currentPageNumber);
+        let page = 1;
+        if(parsed.page !== undefined) {
+            page = parsed.page;
+        }
+
+        this.setState({request: this.props.request, currentPageNumber: page});
+        this.getItemDataFromServer(Links.itemsPath + this.props.request + '/page/' + page);
     }
 
     transformItemDataIntoArray(data) {
