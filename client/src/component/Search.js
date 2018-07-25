@@ -12,6 +12,8 @@ class Search extends Component  {
         }
     }
 
+    
+
     componentDidMount() {
         console.log("phrase in DidMount: ");
         let parsed = queryString.parse(this.props.location.search);
