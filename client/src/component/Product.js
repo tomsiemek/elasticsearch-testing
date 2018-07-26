@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
-import {Container, Image, Table, Divider} from 'semantic-ui-react';
+import {Container, Image, Segment, Icon, Header, Label, Button, Divider, ButtonGroup} from 'semantic-ui-react';
 import axios from 'axios';
 import Links from '../links';
 import queryString from 'query-string';
 import errorImage from '../images/sadFace.png';
-import aliases from '../aliases';
+
+
+const DeleteButton = () => {
+    return (<Button color='red'>
+    DELETE
+    </Button>);
+}
+
 
 class Product extends Component {
 
@@ -29,62 +36,46 @@ class Product extends Component {
         this.setState({noResult: true});
     }
     
-    render(){
-        if(this.state.noResult) {
-           return <Container>"No such item :("</Container>
+    render() {
+        if (this.state.noResult) {
+            return <Container>"No such item :("</Container>
         }
 
         console.log(this.state.product);
         return (
-            <Divider>
-                <Image src={this.state.product.imageUrl} onError={(e) => { e.target.src = errorImage }} />
-                <Table attached basic fluid definition>
-                    <Table.Body>
-                        <Table.Row>
-                            <Table.Cell>
-                                {aliases.name}
-                            </Table.Cell>
-                            <Table.Cell>
-                                {this.state.product.name}
-                            </Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>
-                                {aliases.producer}
-                            </Table.Cell>
-                            <Table.Cell>
-                                {this.state.product.producer}
-                            </Table.Cell>
-                        </Table.Row>
-
-                        <Table.Row>
-                            <Table.Cell>
-                                {aliases.type}
-                            </Table.Cell>
-                            <Table.Cell>
+            <Container className='center aligned' text>
+                <Segment.Group horizontal>
+                    <Segment>
+                        <Image src={this.state.product.imageUrl} fluid onError={(e) => { e.target.src = errorImage }} />
+                    </Segment>
+                    <Segment>
+                        <Header as='h1' textAlign='left'>
+                            {this.state.product.name}
+                        </Header>
+                        <Header as='h4' textAlign='left' color='grey'>
+                            {this.state.product.producer}
+                        </Header>
+                        <Header as='h4' textAlign='left'>
+                            <Icon name='group' />
+                            {this.state.product.amount}
+                        </Header>
+                        <Header as='h4' textAlign='left'>
+                            <Icon name='dollar sign' />
+                            {this.state.product.price}.00
+                        </Header>
+                        <Header as='h3' textAlign='left'>
+                            <Label class='left aligned' tag>
                                 {this.state.product.type}
-                            </Table.Cell>
-                        </Table.Row>
-                        <Table.Row>
-                            <Table.Cell>
-                                {aliases.price}
-                            </Table.Cell>
-                            <Table.Cell>
-                                {this.state.product.price}.00$
-                            </Table.Cell>
-                        </Table.Row>
+                            </Label>
+                            <Button.Group floated='right'>
+                                <DeleteButton/>
+                                </Button.Group>       
+                        </Header>
 
-                        <Table.Row>
-                            <Table.Cell>
-                                {aliases.amount}
-                            </Table.Cell>
-                            <Table.Cell>
-                                {this.state.product.amount}
-                            </Table.Cell>
-                        </Table.Row>
-                    </Table.Body>
-                </Table>
-            </Divider>
+
+                    </Segment>
+                </Segment.Group>
+            </Container>
         );
 
     }
