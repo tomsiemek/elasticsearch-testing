@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Input, Button, Segment} from 'semantic-ui-react';
+import {Container, Input, Button, Segment, Popup} from 'semantic-ui-react';
 import aliases from '../aliases';
 import axios from 'axios';
 import Links from '../links';
@@ -29,6 +29,10 @@ class AddNewItem extends Component {
         this.checkValidity = this.checkValidity.bind(this);
         this.transformToBody = this.transformToBody.bind(this);
         this.submit = this.submit.bind(this);
+        this.handleClosePopup = this.handleClosePopup.bind(this);
+        this.handleOpenPopup = this.handleOpenPopup.bind(this);
+        this.informUserAboutFormError = this.informUserAboutFormError.bind(this);
+        this.makeImageUrlVolume = this.makeImageUrlVolume.bind(this);
 
     }
     state = {
@@ -37,7 +41,9 @@ class AddNewItem extends Component {
         producer: '',
         amount: 0,
         price: 0,
-        imageUrl: ''
+        imageUrl: '',
+        isPopupOpen: false,
+        popupMessage: 'Waiting for server response...'
     }
 
     updateName(value) {
@@ -70,12 +76,15 @@ class AddNewItem extends Component {
 
     sendToServer() {
         axios.post(Links.addRequest, this.transformToBody())
-        .then( () => console.log("Success"))
-        .catch(error => console.log(error));
+        .then( (resp) => {
+            this.setState({popupMessage: 'Item successfully added!'});
+            console.log(resp);
+        })
+        .catch(error => this.setState({popupMessage: 'Couldnt add item to the server!'}));
     }
 
     checkText(text) {
-        if( ! /^[ a-zA-Z0-9]+$/.test(text)) {
+        if( ! (/\w+$/.test(text)) ) {
             return false;
         }
 
@@ -107,8 +116,13 @@ class AddNewItem extends Component {
             '(\\/[-a-z\\d%@_.~+&:]*)*'+ // path
             '(\\?[;&a-z\\d%@_.,~+&:=-]*)?'+ // query string
             '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-        return pattern.test(url);
+       return pattern.test(url);
     }
+
+    makeImageUrlVolume() {
+        this.setState({imageUrl: 'none'});
+    }
+    
 
     checkValidity () {
         if(! this.checkText(this.state.name)) {
@@ -132,17 +146,18 @@ class AddNewItem extends Component {
         }
 
         if(! this.checkUrl(this.state.imageUrl)) {
-            return false;
+            this.makeImageUrlVolume(); // if url is improper just change it value
         }
 
         return true;
     }
 
     informUserAboutFormError() {
-        console.log("Form input error!")
+        this.setState({popupMessage: 'Invalid form data!'});
     }
 
     submit() {
+
         if(this.checkValidity()) {
             this.sendToServer();
             return;
@@ -151,6 +166,14 @@ class AddNewItem extends Component {
         this.informUserAboutFormError();
 
 
+    }
+
+    handleOpenPopup() {
+        this.setState({isPopupOpen: true});
+    }
+
+    handleClosePopup() {
+        this.setState( {isPopupOpen: false} );
     }
 
     render() {
@@ -164,8 +187,17 @@ class AddNewItem extends Component {
                     <InputField name={aliases.amount} type='number'  handleChange={this.updateAmount} /><br />
                     <InputField name={aliases.price} type='number'  handleChange={this.updatePrice} /><br />
                     <InputField name={aliases.imgUrl} type='url'  handleChange={this.updateImgUrl} /><br />
-                    <Button onClick={this.submit}> Add </Button>
+                    <Popup
+                    trigger={<Button onClick={this.submit}> Add </Button>}
+                    content={this.state.popupMessage}
+                    on='click'
+                    open={this.state.isPopupOpen}
+                    onClose={this.handleClosePopup}
+                    onOpen={this.handleOpenPopup}
+                    position='top right'/>
                 </Segment>
+
+                
             </Container>
         );
 
