@@ -41,7 +41,7 @@ class AddNewItem extends Component {
         producer: '',
         amount: 0,
         price: 0,
-        imageUrl: '',
+        imageUrl: 'none',
         isPopupOpen: false,
         popupMessage: 'Waiting for server response...'
     }
@@ -75,6 +75,9 @@ class AddNewItem extends Component {
     }
 
     sendToServer() {
+
+        console.log("about to send to server");
+        console.log(this.state)
         axios.post(Links.addRequest, this.transformToBody())
         .then( (resp) => {
             this.setState({popupMessage: 'Item successfully added!'});
