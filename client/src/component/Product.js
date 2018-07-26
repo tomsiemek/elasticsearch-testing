@@ -4,15 +4,7 @@ import axios from 'axios';
 import Links from '../links';
 import queryString from 'query-string';
 import errorImage from '../images/sadFace.png';
-
-
-const aliases = {
-    name: 'name',
-    producer: 'producer',
-    type: "type",
-    price: "price",
-    amount: 'amount'
-}
+import aliases from '../aliases';
 
 class Product extends Component {
 

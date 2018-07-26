@@ -23,16 +23,22 @@ class Search extends Component  {
     
 
     getSearchDataFromServer(phrase) {
-        axios.get( "http://localhost:3000/items/search/" + phrase)
-        .then(data_ => this.setState( {data: this.transformSearchDataIntoArray(data_) }))     
-      }
+        axios.get("http://localhost:3000/items/search/" + phrase)
+            .then(data_ => this.setState({ data: this.transformSearchDataIntoArray(data_) }))
+    }
 
-      transformSearchDataIntoArray (data) {
-        if(data.data === undefined) {
-          return [];
-        }   
-        return data.data.hits.hits.map( (item,key) => item._source);
-      }
+    transformSearchItem(item) {
+        let result = item._source;
+        result._id = item._id;
+        return result;
+    }
+
+    transformSearchDataIntoArray(data) {
+        if (data.data === undefined) {
+            return [];
+        }
+        return data.data.hits.hits.map((item) => this.transformSearchItem(item));
+    }
 
     render() {
         if(this.state.data.length === 0 || this.state.data === undefined){

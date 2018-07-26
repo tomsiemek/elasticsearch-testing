@@ -11,5 +11,7 @@ module.exports = {
     watchRequest: '/watch',
     anyPath: "*",
     searchQueryPath: '/search',
-    productByIdRequest:"/items/id/"
+    productByIdRequest:"/items/id/",
+    addNewPath: "/add",
+    addRequest: "http://localhost:3000/items"
 };
