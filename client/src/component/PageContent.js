@@ -19,7 +19,7 @@ const PageContent = (data) => {
 
     return (
         <Card.Group stackable itemsPerRow = {5}>
-        {data.map( item =>
+        {data.map( (item, key) =>
         <Card>
             <Image src={item.imageUrl || errorImage} onError={(e)=>{e.target.src=errorImage}} />
             <Card.Content>

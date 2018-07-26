@@ -75,7 +75,7 @@ class AddNewItem extends Component {
     }
 
     checkText(text) {
-        if( ! /^[a-zA-Z0-9]+$/.test(text)) {
+        if( ! /^[ a-zA-Z0-9]+$/.test(text)) {
             return false;
         }
 
@@ -156,6 +156,7 @@ class AddNewItem extends Component {
     render() {
         return (
             <Container className='center aligned grid'>
+                <br/>
                 <Segment>
                     <InputField name={aliases.name} type='text' handleChange={this.updateName} /><br />
                     <InputField name={aliases.type} type='text'  handleChange={this.updateType} /><br />
