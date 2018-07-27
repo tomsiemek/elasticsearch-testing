@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import {Container, Image, Segment, Icon, Header, Label, Button, Divider, ButtonGroup} from 'semantic-ui-react';
+import {Container, Image, Segment, Icon, Header, Label, Button, Modal} from 'semantic-ui-react';
 import axios from 'axios';
 import Links from '../links';
 import queryString from 'query-string';
 import errorImage from '../images/sadFace.png';
+import deleteItem from '../deleteItem';
 
-
-const DeleteButton = () => {
-    return (<Button color='red'>
+const DeleteButton = (props) => {
+    return (<Button onClick={props.onClick} color='red'>
     DELETE
     </Button>);
 }
@@ -15,25 +15,53 @@ const DeleteButton = () => {
 
 class Product extends Component {
 
+
+    constructor(props) {
+        super(props);
+
+        this.deleteProduct = this.deleteProduct.bind(this);
+        this.getId = this.getId.bind(this);
+        this.handleCloseDeleteModal = this.handleCloseDeleteModal.bind(this);
+    }
     state = {
         product: {},
-        noResult: false
+        noResult: true,
+        itemDeletedModal: false
     }
 
 
-    componentDidMount() {
+    getId() {
         let parsed = queryString.parse(this.props.location.search);
-        let id = parsed.id;
-        this.getProductFromServer(id);
+        return parsed.id;
+    }
+    componentDidMount() {
+        this.getProductFromServer(this.getId());
         
+    }
+
+    deleteProduct() {
+        deleteItem(this.getId())
+        .then(() => console.log("Item deleted!"))
+        .catch(e => console.log(e));
+        this.setState({itemDeletedModal: true})
     }
 
     getProductFromServer(id) {
         axios.get(Links.productByIdRequest + id)
         .then(data => {console.log(data); return data;})
-        .then(data => this.setState({product: data.data[0], noResult: false}));
+        .then(data => {
+            if(data.data.length !== 0) {
+                this.setState({product: data.data[0], noResult: false});
+            }
+        });
 
         this.setState({noResult: true});
+    }
+
+    handleCloseDeleteModal() {
+        this.setState({itemDeletedModal: false,
+            noResult: true
+        })
     }
     
     render() {
@@ -67,8 +95,25 @@ class Product extends Component {
                             <Label class='left aligned' tag>
                                 {this.state.product.type}
                             </Label>
-                            <Button.Group floated='right'>
-                                <DeleteButton/>
+                            <Button.Group floated='right' attached='bottom'>
+                                <Modal
+                                    trigger={<DeleteButton onClick={this.deleteProduct}/>}
+                                    open={this.state.itemDeletedModal}
+                                    onClose={this.handleCloseDeleteModal}
+                                    basic
+                                    size='small'
+                                >
+                                    <Header icon='browser' content='Cookies policy' />
+                                    <Modal.Content>
+                                        <h3>Item just got deleted!</h3>
+                                    </Modal.Content>
+                                    <Modal.Actions>
+                                        <Button color='green' onClick={this.handleCloseDeleteModal} inverted>
+                                            <Icon name='checkmark' /> OK
+                                        </Button>
+                                    </Modal.Actions>
+                                </Modal>
+                                
                                 </Button.Group>       
                         </Header>
 
