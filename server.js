@@ -4,7 +4,7 @@ const bodyParser = require ('body-parser');
 const cors = require('cors');
 
 const items = require('./routes/api/items');
-
+const users = require('./routes/api/users');
 const app = express();
 
 
@@ -24,5 +24,7 @@ mongoose
 
 // Use routes
 app.use('/items', items);
+app.use('/users', users);
+
 
 module.exports = app;

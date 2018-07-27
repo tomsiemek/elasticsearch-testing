@@ -14,8 +14,8 @@ const pageLimit = 10;
 router.get('/', (req,res) => {
     console.log("GET REQUEST " + new Date().toLocaleString());
     Item.find()
-        .sort({ name: 1})
-        .then(items => res.json(items));
+        .then(items => res.json(items))
+        .catch(e => console.log(e));
 }); // already on api/items
 
 router.get('/id/:id', (req,res) => {
