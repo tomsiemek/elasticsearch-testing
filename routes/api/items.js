@@ -79,8 +79,8 @@ router.get('/search/:id', (req,res) => {
 //deleting item of a given id
 router.delete('/:id', (req,res) => {
     console.log("DELETE REQUEST: " + req.params.id)
-    Item.findById(req.params.id)
-        .then(item => item.remove().then(() => res.json({sucess:true})))
+    Item.findByIdAndRemove(req.params.id)
+        .then(() => res.json({sucess:true}))
         .catch(err => res.status(404).json({success: false}));
 });
 
