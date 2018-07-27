@@ -101,9 +101,8 @@ class Product extends Component {
                                     open={this.state.itemDeletedModal}
                                     onClose={this.handleCloseDeleteModal}
                                     basic
-                                    size='small'
-                                >
-                                    <Header icon='browser' content='Cookies policy' />
+                                    size='small'>
+
                                     <Modal.Content>
                                         <h3>Item just got deleted!</h3>
                                     </Modal.Content>
