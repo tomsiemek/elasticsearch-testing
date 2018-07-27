@@ -8,20 +8,29 @@ const expressJsonValidate = require('express-jwt');
 const secretKey = 'okon';
 
 const JsonWebTokenMiddleware = expressJsonValidate({secret: secretKey});
-
+const crypto = require('crypto');
+;
 function encryptPassword(password, salt) {
-    return password;
+    console.log(salt);
+
+    const numberOfIterations = 100000;
+    const keylen = 64;
+    const digest = 'sha512'
+    let key = crypto.pbkdf2Sync(password, salt, numberOfIterations, keylen, digest);
+    return key.toString('hex');
 }
 
 function createSalt () {
-    return Math.random * 100;
+    let salt = crypto.randomBytes(16).toString('hex');
+    console.log('salt: ' + salt);
+    return salt;
 }
 //create new user
 router.post('/',(req,res) => {
     console.log("POST REQUEST NEW USER " + new Date().toLocaleString());
     console.log(req.body);
-    
-    const newItem = new User( new UserObject(req.body.login, encryptPassword(req.body.password), ) );
+    let salt = createSalt();
+    const newItem = new User( new UserObject(req.body.login, encryptPassword(req.body.password,salt ), salt ));
 
     newItem.save().then(item => res.json(item)); 
 });
@@ -67,7 +76,7 @@ router.post('/login', (req,res) => {
     console.log("Login try, username: " + req.body.login);
     User.findOne({login: req.body.login})
        .then(user => {
-           if(user.password === encryptPassword(req.body.password)){
+           if(user.password === encryptPassword(req.body.password,user.salt)){
                let token = JsonWebToken.sign(req.body,secretKey,expireTime )
                res.json(responseObject(true, token));
            } 

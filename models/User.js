@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const crypto = require('crypto');
 
+
+
 const User = new Schema( new UserObject(
     {
         type: String,
@@ -12,7 +14,8 @@ const User = new Schema( new UserObject(
     {
         type: String,
         required: true
-    }
+    },
+    String
 ) );
 
 module.exports = user = mongoose.model('user', User);
