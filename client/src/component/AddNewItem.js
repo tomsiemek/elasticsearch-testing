@@ -10,7 +10,7 @@ const minNumber = 0;
 
 const InputField = (props) => {
     return (
-        <Input placeholder={props.name} type={props.type} size='massive' transparent onChange={(e) => props.handleChange(e.target.value)}/>
+        <Input placeholder={props.name} type={props.type} size='massive' onChange={(e) => props.handleChange(e.target.value)}/>
     );
 }
 

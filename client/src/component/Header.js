@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Links from '../links';
-import {Menu, Icon} from 'semantic-ui-react';
+import {Menu, Icon, Button} from 'semantic-ui-react';
 import {Link} from 'react-router-dom'; 
 
 const names = {
@@ -8,7 +8,9 @@ const names = {
     tvs: "Tvs",
     phones: "Phones",
     watches: "Watches",
-    addNew: "Add new"
+    addNew: "Add new",
+    login: "Login",
+    signUp: "Sign Up"
 }
 
 class Header extends Component {
@@ -34,8 +36,27 @@ class Header extends Component {
                 </Menu.Item>
 
                 <Menu.Item>
-                    <Link to={Links.addNewPath}><Icon name="shop" />{names.addNew}</Link>
+                    <Link to={Links.addNewPath}><Icon name="plus" />{names.addNew}</Link>
                 </Menu.Item>
+
+                 <Menu.Item>
+                    <Link to={Links.loginPath}><Icon name="key" />{names.login}</Link>
+                </Menu.Item>
+
+                <Menu.Item>
+                    <Link to={Links.signUpPath}><Icon name="angle double up" />{names.signUp}</Link>
+                </Menu.Item>
+
+                {this.props.isLogged &&
+                <Menu.Item as={Button} onClick={this.props.handleLogout}>
+                    Log Out
+                </Menu.Item>
+                }
+
+
+
+
+
 
             </Menu>
           )

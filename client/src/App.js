@@ -13,7 +13,39 @@ class App extends Component {
     super(props);
 
     this.search = this.search.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
+
+
+  state = {
+    isLogged: false,
+    token: '',
+    username: ''
+  }
+
+  handleLogin(token, username) {
+    this.setState({
+      isLogged: true,
+      token: token,
+      username: username
+    })
+  }
+
+  handleLogout() {
+    this.setState({
+      isLogged: false,
+      token: '',
+      username: ''
+    })
+  }
+
+
+
+  onSignIn() {
+
+  }
+
   searchQuery(phrase) {
     console.log("SEARCH QUERY:");
     console.log( Links.searchQueryPath + '?q=' + phrase);
@@ -32,10 +64,10 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Header />
+        <Header handleLogout={this.handleLogout} isLogged={this.state.isLogged} />
         <Searchbar onChange={this.search}/>
         
-        <Main/>
+        <Main handleLogin={this.handleLogin}/>
       </div>
 
 

@@ -13,6 +13,10 @@ module.exports = {
     searchQueryPath: '/search',
     productByIdRequest:"/items/id/",
     addNewPath: "/add",
+    loginPath: "/login",
+    signUpPath: "/signup",
     addRequest: "http://localhost:3000/items",
-    deleteRequest: "http://localhost:3000/items"
+    deleteRequest: "http://localhost:3000/items",
+    loginRequest: "http://localhost:3000/users/login",
+    signUpRequest: "http://localhost3000/users/"
 };

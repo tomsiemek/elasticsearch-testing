@@ -9,7 +9,11 @@ import Search from './Search';
 import NoResult from './NoResult';
 import Product from './Product'
 import AddNewItem from './AddNewItem'
+import Login from './Login';
+import SignUp from './SignUp';
 class Main extends Component {
+
+
     render() {
         return (
             <main>
@@ -21,6 +25,8 @@ class Main extends Component {
                     <Route path={Links.searchPath} component={Search} />
                     <Route path={Links.productPath} component={Product}/>
                     <Route path={Links.addNewPath} component={AddNewItem}/>
+                    <Route path={Links.loginPath} component={() => <Login handleLogin = {this.props.handleLogin}/>}/>
+                    <Route path={Links.signUpPath} component={SignUp}/>
                     <Route path={Links.anyPath} component={NoResult}/>
                 </Switch>
             </main>
