@@ -7,10 +7,13 @@ import 'semantic-ui-css/semantic.min.css';
 import history from './history';
 
 import {Router}  from 'react-router-dom';
+import {CookiesProvider} from 'react-cookie';
 
 ReactDOM.render((
     <Router history ={history}>
-        <App />
+        <CookiesProvider>
+            <App />
+        </CookiesProvider>
     </Router>)
     , document.getElementById('root'));
 registerServiceWorker();

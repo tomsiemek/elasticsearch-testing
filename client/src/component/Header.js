@@ -38,18 +38,20 @@ class Header extends Component {
                 <Menu.Item>
                     <Link to={Links.addNewPath}><Icon name="plus" />{names.addNew}</Link>
                 </Menu.Item>
-
+                {!this.props.isLogged &&
                  <Menu.Item>
-                    <Link to={Links.loginPath}><Icon name="key" />{names.login}</Link>
+                    <Link to={Links.loginPath}><Icon name="sign in" />{names.login}</Link>
                 </Menu.Item>
-
+                }
+                {!this.props.isLogged &&
                 <Menu.Item>
                     <Link to={Links.signUpPath}><Icon name="angle double up" />{names.signUp}</Link>
                 </Menu.Item>
+                }
 
                 {this.props.isLogged &&
                 <Menu.Item as={Button} onClick={this.props.handleLogout}>
-                    Log Out
+                    <font color="red"><Icon name="sign out" />Log Out</font>
                 </Menu.Item>
                 }
 

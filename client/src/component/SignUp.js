@@ -19,7 +19,10 @@ class SignUp extends Component {
     state = {
         username: '',
         password: '',
-        repeatedPassword: ''
+        repeatedPassword: '',
+        passwordMistake: false,
+        usernameTaken: false,
+        signUpSuccess: false
     }
 
     changeStateField(field, value) {
@@ -55,9 +58,25 @@ class SignUp extends Component {
 
 
     handleSignUp() {
-        this.tryToSignUp().then(data => {
-            console.log(data);
-        })
+
+        if(this.state.password !== this.state.repeatedPassword) {
+            this.setState({passwordMistake: true});
+            return;
+        }
+
+        this.tryToSignUp()
+            .then(data => {
+                if(data.data.login) {
+                    this.changeStateField("signUpSuccess", true);
+                    this.setState({passwordMistake: false, usernameTaken: false});
+                }
+
+                else {
+                    this.changeStateField('usernameTaken', true);
+                    this.setState({passwordMistake: false});
+                }
+            }
+        );  
     }
 
     
@@ -71,6 +90,9 @@ class SignUp extends Component {
                     <div><Input placeholder="password" type="password" onChange={this.changePassword} /></div>
                     <div><Input placeholder="repeat password" type="password" onChange={this.changeRepeatedPassword} /></div>
                     <div><Button onClick={this.handleSignUp}>Sign up</Button></div>
+                    {this.state.passwordMistake && <div>PASSWORDS DOES NOT MATCH</div>}
+                    {this.state.usernameTaken && <div>USERNAME ALREADY TAKEN</div>}
+                    {this.state.signUpSuccess && <div>SUCCESS</div>}
                 </Segment>
 
             </Container>
