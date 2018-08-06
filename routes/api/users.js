@@ -26,13 +26,26 @@ function createSalt () {
     return salt;
 }
 //create new user
-router.post('/',(req,res) => {
+router.post('/', (req, res) => {
     console.log("POST REQUEST NEW USER " + new Date().toLocaleString());
     console.log(req.body);
-    let salt = createSalt();
-    const newItem = new User( new UserObject(req.body.login, encryptPassword(req.body.password,salt ), salt ));
 
-    newItem.save().then(item => res.json(item)); 
+    User.findOne({ login: req.body.login })
+        .then((user) =>  {
+            if (user === null) {
+                let salt = createSalt();
+                const newItem = new User(new UserObject(req.body.login, encryptPassword(req.body.password, salt), salt));
+
+                newItem.save().then(item => res.json(item));
+            }
+            else {
+                res.json({
+                    message: 'username already taken'
+                })
+            }
+        });
+
+
 });
 
 function responseObject(isOk, token_ = null) {
