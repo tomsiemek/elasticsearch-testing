@@ -3,6 +3,7 @@ import {Container, Input, Button, Segment, Popup} from 'semantic-ui-react';
 import aliases from '../aliases';
 import axios from 'axios';
 import Links from '../links';
+import cookie from 'react-cookies';
 
 const maxInputLength = 20;
 const maxNumber = 999999;
@@ -34,7 +35,13 @@ class AddNewItem extends Component {
         this.informUserAboutFormError = this.informUserAboutFormError.bind(this);
         this.makeImageUrlVolume = this.makeImageUrlVolume.bind(this);
 
+        this.state = {
+            authorised: true
+        }
+
     }
+
+
     state = {
         name: '',
         type: '',
@@ -78,12 +85,24 @@ class AddNewItem extends Component {
 
         console.log("about to send to server");
         console.log(this.state)
-        axios.post(Links.addRequest, this.transformToBody())
+
+
+        let headers = {
+            'Content-Type': 'application/json',
+            'Authorization' : cookie.load('token')
+        }
+
+        axios( {
+            method:'post',
+            url: Links.addRequest,
+            data:this.transformToBody(),
+            headers: headers
+        })
         .then( (resp) => {
             this.setState({popupMessage: 'Item successfully added!'});
             console.log(resp);
         })
-        .catch(error => this.setState({popupMessage: 'Couldnt add item to the server!'}));
+        .catch(error => this.setState({popupMessage: 'Couldnt add item to the server!' + error.toString()}));
     }
 
     checkText(text) {

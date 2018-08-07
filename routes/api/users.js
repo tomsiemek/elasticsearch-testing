@@ -5,7 +5,7 @@ const UserObject = require('../../models/UserObject');
 const JsonWebToken = require('jsonwebtoken');
 const expressJsonValidate = require('express-jwt');
 
-const secretKey = 'okon';
+const secretKey = require('../../config/keys').secretKey;
 
 const JsonWebTokenMiddleware = expressJsonValidate({secret: secretKey});
 const crypto = require('crypto');
@@ -55,11 +55,25 @@ function responseObject(isOk, token_ = null) {
     };
 }
 // get all users
-router.get('/', (req,res) => {
+router.get('/', JsonWebTokenMiddleware, (req,res) => {
     console.log("GET REQUEST USERS " + new Date().toLocaleString());
-    User.find()
+
+    const token = req.get('Authorization').split(' ')[1]
+    const decoded = JsonWebToken.decode(token);
+    if(decoded.login === 'tomek') {
+       User.find()
         .sort({ login: 1})
-        .then(users => res.json(users));
+        .then(users => res.json(users)); 
+    }
+    else {
+        res.json(
+            {
+                msg: "You are not Tomek, you crazy bastard"
+            }
+        )
+    }
+
+    
 });
 //delete user
 router.delete('/id/:id', (req,res) => {

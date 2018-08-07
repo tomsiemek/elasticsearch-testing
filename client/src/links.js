@@ -18,5 +18,7 @@ module.exports = {
     addRequest: "http://localhost:3000/items",
     deleteRequest: "http://localhost:3000/items",
     loginRequest: "http://localhost:3000/users/login",
-    signUpRequest: "http://localhost:3000/users/"
+    signUpRequest: "http://localhost:3000/users/",
+    userListPath: '/userlist',
+    userListRequest: "http://localhost:3000/users/"
 };

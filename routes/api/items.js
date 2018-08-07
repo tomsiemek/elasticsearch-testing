@@ -6,12 +6,16 @@ const Item = require('../../models/Item');
 const ItemObject = require('../../models/ItemObject');
 var mongoosePaginate = require('mongoose-paginate');
 
+const expressJsonValidate = require('express-jwt');
+const secretKey = require('../../config/keys').secretKey;
+
+const JsonWebTokenMiddleware = expressJsonValidate({secret: secretKey});
 
 
 const pageLimit = 10;
 
 //getting all items
-router.get('/', (req,res) => {
+router.get('/',JsonWebTokenMiddleware, (req,res) => {
     console.log("GET REQUEST " + new Date().toLocaleString());
     Item.find()
         .then(items => res.json(items))
@@ -40,7 +44,7 @@ router.get('/type/:type/page/:page', (req, res) => {
 
 });
 
-router.post('/', (req,res) => {
+router.post('/',JsonWebTokenMiddleware, (req,res) => {
 
     console.log("POST REQUEST " + new Date().toLocaleString());
     console.log(req.body);

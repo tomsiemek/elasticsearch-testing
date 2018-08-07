@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route} from 'react-router-dom';
 import Tvs from './Tvs';
 import Phones from './Phones';
 import Watches from './Watches';
@@ -11,12 +11,12 @@ import Product from './Product'
 import AddNewItem from './AddNewItem'
 import Login from './Login';
 import SignUp from './SignUp';
+import Userlist from './Userlist'
 class Main extends Component {
 
 
     render() {
         return (
-            <main>
                 <Switch>
                     <Route exact path={Links.homePath} component={Home} />
                     <Route path={Links.tvsPath} component={Tvs} />
@@ -27,9 +27,9 @@ class Main extends Component {
                     <Route path={Links.addNewPath} component={AddNewItem}/>
                     <Route path={Links.loginPath} component={() => <Login handleLogin = {this.props.handleLogin}/>}/>
                     <Route path={Links.signUpPath} component={SignUp}/>
+                    <Route path={Links.userListPath} component={Userlist}/>
                     <Route path={Links.anyPath} component={NoResult}/>
                 </Switch>
-            </main>
         )
         }
   

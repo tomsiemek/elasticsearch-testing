@@ -10,7 +10,8 @@ const names = {
     watches: "Watches",
     addNew: "Add new",
     login: "Login",
-    signUp: "Sign Up"
+    signUp: "Sign Up",
+    userList: "Users"
 }
 
 class Header extends Component {
@@ -34,10 +35,18 @@ class Header extends Component {
                 <Menu.Item>
                     <Link to={Links.watchesPath}><Icon name="clock" />{names.watches}</Link>
                 </Menu.Item>
-
+                {this.props.isLogged &&
                 <Menu.Item>
                     <Link to={Links.addNewPath}><Icon name="plus" />{names.addNew}</Link>
                 </Menu.Item>
+                }
+
+                {this.props.isLogged &&
+                <Menu.Item>
+                    <Link to={Links.userListPath}><Icon name="user" />{names.userList}</Link>
+                </Menu.Item>
+                }
+
                 {!this.props.isLogged &&
                  <Menu.Item>
                     <Link to={Links.loginPath}><Icon name="sign in" />{names.login}</Link>
