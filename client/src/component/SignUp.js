@@ -83,9 +83,9 @@ class SignUp extends Component {
     render() {
         return (
             <Container className='center aligned grid'>
-
-                <br />
+            <br/>
                 <Segment>
+                    <Segment color='blue'>REGISTER PAGE</Segment>
                     <div><Input placeholder="username" onChange={this.changeUsername} /></div>
                     <div><Input placeholder="password" type="password" onChange={this.changePassword} /></div>
                     <div><Input placeholder="repeat password" type="password" onChange={this.changeRepeatedPassword} /></div>

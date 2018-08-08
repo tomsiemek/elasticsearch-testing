@@ -30,6 +30,7 @@ export default class ChangeProfile extends Component {
 
                 <br />
                 <Segment>
+                    <Segment color='blue'>CHANGE YOUR PASSWORD</Segment>
                     <div><Input placeholder="old password" name='oldPassword' type="password" onChange={this.changeField} /></div>
                     <div><Input placeholder="new password " name='newPassword' type="password" onChange={this.changeField} /></div>
                     <div><Input placeholder="repeat new password" name='repeatedNewPassword' type="password" onChange={this.changeField} /></div>

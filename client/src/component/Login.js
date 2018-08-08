@@ -56,9 +56,11 @@ class Login extends Component {
     render() {
         return(
             <Container className='center aligned grid'>
+            <br/>
             <Segment>
+                <Segment color='blue'>LOGIN PAGE</Segment>
                 {this.state.loginSuccess && <Redirect to='/'/>}
-                {this.state.loginFail && <Segment  inverted color='red'>LOGIN FAILURE</Segment>}
+                {this.state.loginFail && <Segment  inverted color='red'>FAILURE</Segment>}
                 
                     <div><Input placeholder="username" onChange={this.handleUsernameChange} /></div>
                     <div><Input placeholder="password" type="password" onChange={this.handlePasswordChange} /></div>

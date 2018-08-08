@@ -204,6 +204,7 @@ class AddNewItem extends Component {
             <Container className='center aligned grid'>
                 <br/>
                 <Segment>
+                    <Segment color='blue'>ADD NEW ITEM</Segment>
                     <InputField name={aliases.name} type='text' handleChange={this.updateName} /><br />
                     <InputField name={aliases.type} type='text'  handleChange={this.updateType} /><br />
                     <InputField name={aliases.producer} type='text'  handleChange={this.updateProducer} /><br />
