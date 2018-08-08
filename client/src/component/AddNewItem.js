@@ -91,6 +91,7 @@ class AddNewItem extends Component {
             'Content-Type': 'application/json',
             'Authorization' : cookie.load('token')
         }
+        console.log(headers);
 
         axios( {
             method:'post',

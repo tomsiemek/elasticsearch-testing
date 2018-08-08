@@ -6,6 +6,7 @@ import Links from './links';
 import Main from './component/Main';
 import history from './history';
 import cookie  from 'react-cookies';
+import Userprofile from './component/Userprofile';
 
 class App extends Component {
 
@@ -18,19 +19,16 @@ class App extends Component {
       username: ''
     };
     
-    this.search = this.search.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     if(cookie.load('username') !== this.userNameLoggedOff)
     {
       this.setStateLoggedIn(cookie.load('username'), cookie.load('token'));
     }
   }
 
-  setStateLoggedIn(username, token) {
+  setStateLoggedIn = (username, token) => {
     this.setState({
       isLogged: true,
       token: token,
@@ -41,7 +39,7 @@ class App extends Component {
 
   
 
-  handleLogin(token, username) {
+  handleLogin = (token, username) => {
     
     this.setStateLoggedIn(username, token);
     cookie.save(
@@ -52,7 +50,7 @@ class App extends Component {
 
   }
   userNameLoggedOff = '!';
-  handleLogout() {
+  handleLogout = () => {
     this.setState({
       isLogged: false,
       token: '',
@@ -60,6 +58,7 @@ class App extends Component {
     })
 
     cookie.save('username', this.userNameLoggedOff );
+    cookie.save('token', this.userNameLoggedOff);
 
   }
 
@@ -69,13 +68,13 @@ class App extends Component {
 
   }
 
-  searchQuery(phrase) {
+  searchQuery = (phrase) => {
     console.log("SEARCH QUERY:");
     console.log( Links.searchQueryPath + '?q=' + phrase);
     return Links.searchQueryPath + '?q=' + phrase;
   }
 
-  search(phrase) {
+  search  = (phrase) => {
     console.log("INA APPJS: ");
     console.log(phrase);
     history.push(this.searchQuery(phrase));
@@ -88,9 +87,11 @@ class App extends Component {
     return (
       <div className="App">
         <Header handleLogout={this.handleLogout} isLogged={this.state.isLogged} />
+        
         <Searchbar onChange={this.search}/>
         
         <Main handleLogin={this.handleLogin}/>
+        <Userprofile username={this.state.username}/>
       </div>
 
 

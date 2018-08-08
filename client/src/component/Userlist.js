@@ -10,6 +10,8 @@ class Userlist extends Component {
         fail: true
     }
 
+
+
     getData = () => {
 
         let headers = {
@@ -21,7 +23,15 @@ class Userlist extends Component {
             method:'get',
             url: Links.userListRequest,
             headers: headers
-        }).then(data => this.setState({ data: data.data, fail: false }))
+        }).then(data =>  {
+            if(data.data.msg !== undefined) {
+                this.setState({fail: true});
+            }
+            else {
+                this.setState({ data: data.data, fail: false });
+            }
+                
+        });
     }
 
     componentDidMount = () => {
@@ -33,10 +43,14 @@ class Userlist extends Component {
     }
 
     render() {
+
+        console.log(this.state.fail);
+        console.log(this.state.data);
+
         if (this.state.fail) {
             return (
                 <div>
-                    YOU CANT VIEW THIS SITE
+                    YOU DO NOT HAVE RIGHTS TO VIEW THIS 
                  </div>
             )
         }
@@ -46,21 +60,19 @@ class Userlist extends Component {
 
                 <Container>
                     <Table>
-                        
-                         <Table.Header>
-                                        <Table.Row>
-                                            <Table.HeaderCell>LOGIN</Table.HeaderCell>
-                                            <Table.HeaderCell>ID</Table.HeaderCell>
-                                            <Table.HeaderCell>DELETE</Table.HeaderCell>
-                                        </Table.Row>
-                                    </Table.Header>
-                        
+
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>LOGIN</Table.HeaderCell>
+                                <Table.HeaderCell>ID</Table.HeaderCell>
+                                <Table.HeaderCell>DELETE</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+
                         <TableBody>
                             {
                                 this.state.data.map((item, key) => {
                                     console.log(item);
-
-                                   
                                     return (
                                         <TableRow>
                                             <TableCell>
@@ -76,10 +88,7 @@ class Userlist extends Component {
                                                     DELETE
                                             </Button>
                                             </TableCell>
-
-
                                         </TableRow>
-
                                     )
                                 })
                             }

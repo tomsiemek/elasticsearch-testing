@@ -20,5 +20,7 @@ module.exports = {
     loginRequest: "http://localhost:3000/users/login",
     signUpRequest: "http://localhost:3000/users/",
     userListPath: '/userlist',
-    userListRequest: "http://localhost:3000/users/"
+    userListRequest: "http://localhost:3000/users/",
+    profilePath: '/profile',
+    changePasswordRequest: 'http://localhost:3000/users/'
 };

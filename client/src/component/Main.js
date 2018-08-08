@@ -12,6 +12,7 @@ import AddNewItem from './AddNewItem'
 import Login from './Login';
 import SignUp from './SignUp';
 import Userlist from './Userlist'
+import ChangeProfile from './ChangeProfile'
 class Main extends Component {
 
 
@@ -28,6 +29,7 @@ class Main extends Component {
                     <Route path={Links.loginPath} component={() => <Login handleLogin = {this.props.handleLogin}/>}/>
                     <Route path={Links.signUpPath} component={SignUp}/>
                     <Route path={Links.userListPath} component={Userlist}/>
+                    <Route path={Links.profilePath} component={ChangeProfile}/>
                     <Route path={Links.anyPath} component={NoResult}/>
                 </Switch>
         )

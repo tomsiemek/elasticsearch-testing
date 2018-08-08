@@ -11,7 +11,8 @@ const names = {
     addNew: "Add new",
     login: "Login",
     signUp: "Sign Up",
-    userList: "Users"
+    userList: "Users",
+    profile: 'Profile'
 }
 
 class Header extends Component {
@@ -43,7 +44,13 @@ class Header extends Component {
 
                 {this.props.isLogged &&
                 <Menu.Item>
-                    <Link to={Links.userListPath}><Icon name="user" />{names.userList}</Link>
+                    <Link to={Links.profilePath}><Icon name="user" />{names.profile}</Link>
+                </Menu.Item>
+                }
+
+                {this.props.isLogged &&
+                <Menu.Item>
+                    <Link to={Links.userListPath}><Icon name="star" />{names.userList}</Link>
                 </Menu.Item>
                 }
 
@@ -57,6 +64,8 @@ class Header extends Component {
                     <Link to={Links.signUpPath}><Icon name="angle double up" />{names.signUp}</Link>
                 </Menu.Item>
                 }
+
+
 
                 {this.props.isLogged &&
                 <Menu.Item as={Button} onClick={this.props.handleLogout}>

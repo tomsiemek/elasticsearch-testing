@@ -25,6 +25,35 @@ function createSalt () {
     console.log('salt: ' + salt);
     return salt;
 }
+
+// change password
+router.put('/:username', (req,res) => {
+    let oldPassword = req.body.oldPassword;
+    let newPassword = req.body.newPassword;
+    let username = req.params.username;
+    console.log(`CHANGE PASS FOR: ${username}`);
+
+    User.findOne({login: username})
+        .then(user => {
+            let encryptedPassword = encryptPassword(oldPassword, user.salt);
+
+            if(user.password === encryptedPassword) {
+                user.password = encryptPassword(newPassword, user.salt);
+                user.save().then( (status) => res.json(status) );
+            }
+            else {
+                res.json({
+                    msg: 'WRONG PASSWORD'
+                })
+            }
+
+        })
+        .catch(err => res.json(err));
+
+    
+
+
+})
 //create new user
 router.post('/', (req, res) => {
     console.log("POST REQUEST NEW USER " + new Date().toLocaleString());
@@ -58,9 +87,11 @@ function responseObject(isOk, token_ = null) {
 router.get('/', JsonWebTokenMiddleware, (req,res) => {
     console.log("GET REQUEST USERS " + new Date().toLocaleString());
 
+    const adminLogin = 'tomek';
+
     const token = req.get('Authorization').split(' ')[1]
     const decoded = JsonWebToken.decode(token);
-    if(decoded.login === 'tomek') {
+    if(decoded.login === adminLogin) {
        User.find()
         .sort({ login: 1})
         .then(users => res.json(users)); 
@@ -108,7 +139,7 @@ router.post('/login', (req,res) => {
                res.json(responseObject(true, token));
            } 
            else {
-               res.status(401).json(responseObject(false));
+               res.json(responseObject(false));
            }
        }).catch(err => res.json(noUserFoundMessage(req.body.login)));
 });
