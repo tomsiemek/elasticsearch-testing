@@ -3,11 +3,15 @@ import {Image, Button, Card} from 'semantic-ui-react';
 import errorImage from '../images/sadFace.png';
 import {Link} from 'react-router-dom'
 import Links from '../links';
+import labels from '../labels';
+
+
+
 
 const PageContent = (data) => {
 
     if (data.length === 0) {
-        return <div> NOTHING HERE :/</div>
+        return <div> {labels.noResultPageText}</div>
     }
 
     console.log("IN PAGECONTENT: ");
@@ -28,12 +32,12 @@ const PageContent = (data) => {
                 <Card.Meta>
                     <span className='date'>{item.producer}</span>
                 </Card.Meta>
-                <Card.Description> {item.price || "n/d"} PLN  <br/> Amount: {item.amount || "n/d"} </Card.Description>
+                <Card.Description> {item.price || "n/d"} PLN  <br/> {labels.amount}: {item.amount || "n/d"} </Card.Description>
             </Card.Content>
             <Card.Content extra>
         <div className='ui two buttons'>
           <Button basic color='blue'>
-            BUY
+            {labels.buy}
           </Button>
         </div>
       </Card.Content>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Segment, Label} from 'semantic-ui-react';
-
+import labels from '../labels';
 
 export default class Userprofile extends Component {
 
@@ -9,7 +9,7 @@ export default class Userprofile extends Component {
         this.props.username && 
         <Segment floated='right' compact textAlign='right'>
             <Label color='blue'>
-                Logged as:
+                {labels.userLabel}
                 <Label.Detail>{this.props.username}</Label.Detail>
             </Label>
         </Segment>

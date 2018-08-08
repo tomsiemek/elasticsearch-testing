@@ -1,8 +1,9 @@
 import React from 'react';
+import labels from '../labels';
 
 const NoResult = () => {
     return (
-        <div> NOTHING HERE :(</div>
+        <div>{labels.noResultPageText}</div>
     )
 }
 

@@ -5,10 +5,11 @@ import Links from '../links';
 import queryString from 'query-string';
 import errorImage from '../images/sadFace.png';
 import deleteItem from '../deleteItem';
+import labels from '../labels';
 
 const DeleteButton = (props) => {
     return (<Button onClick={props.onClick} color='red'>
-    DELETE
+    {labels.delete}
     </Button>);
 }
 
@@ -66,7 +67,7 @@ class Product extends Component {
     
     render() {
         if (this.state.noResult) {
-            return <Container>"No such item :("</Container>
+            return <Container>{labels.noItemText}</Container>
         }
 
         console.log(this.state.product);
@@ -104,7 +105,7 @@ class Product extends Component {
                                     size='small'>
 
                                     <Modal.Content>
-                                        <h3>Item just got deleted!</h3>
+                                        <h3>{labels.itemDeletedMessage}</h3>
                                     </Modal.Content>
                                     <Modal.Actions>
                                         <Button color='green' onClick={this.handleCloseDeleteModal} inverted>

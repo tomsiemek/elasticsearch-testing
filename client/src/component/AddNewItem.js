@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
-import {Container, Input, Button, Segment, Popup} from 'semantic-ui-react';
+import {Container, Input, Button, Segment, Popup, LabelGroup} from 'semantic-ui-react';
 import aliases from '../aliases';
 import axios from 'axios';
 import Links from '../links';
 import cookie from 'react-cookies';
+import labels from '../labels';
+
 
 const maxInputLength = 20;
 const maxNumber = 999999;
 const minNumber = 0;
+
 
 const InputField = (props) => {
     return (
@@ -204,7 +207,7 @@ class AddNewItem extends Component {
             <Container className='center aligned grid'>
                 <br/>
                 <Segment>
-                    <Segment color='blue'>ADD NEW ITEM</Segment>
+                    <Segment color='blue'>{labels.addNewItem}</Segment>
                     <InputField name={aliases.name} type='text' handleChange={this.updateName} /><br />
                     <InputField name={aliases.type} type='text'  handleChange={this.updateType} /><br />
                     <InputField name={aliases.producer} type='text'  handleChange={this.updateProducer} /><br />
@@ -212,7 +215,7 @@ class AddNewItem extends Component {
                     <InputField name={aliases.price} type='number'  handleChange={this.updatePrice} /><br />
                     <InputField name={aliases.imgUrl} type='url'  handleChange={this.updateImgUrl} /><br />
                     <Popup
-                    trigger={<Button onClick={this.submit}> Add </Button>}
+                    trigger={<Button onClick={this.submit}> {labels.add} </Button>}
                     content={this.state.popupMessage}
                     on='click'
                     open={this.state.isPopupOpen}

@@ -1,9 +1,10 @@
 import React from 'react';
-import {Card} from 'semantic-ui-react';
+import {Card, LabelDetail} from 'semantic-ui-react';
 import errorImage from '../images/sadFace.png';
 import {Image, Button} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import Links from '../links';
+import labels from '../labels';
 
 const ItemCard = item => 
     <Card>
@@ -14,12 +15,12 @@ const ItemCard = item =>
             <Card.Meta>
                 <span className='date'>{item.producer}</span>
             </Card.Meta>
-            <Card.Description> {item.price || "n/d"} PLN  <br /> Amount: {item.amount || "n/d"} </Card.Description>
+            <Card.Description> {item.price || "n/d"} {labels.currency}  <br /> {labels.amount}: {item.amount || "n/d"} </Card.Description>
         </Card.Content>
         <Card.Content extra>
             <div className='ui two buttons'>
                 <Button basic color='blue'>
-                    BUY
+                    {labels.buy}
           </Button>
             </div>
         </Card.Content>

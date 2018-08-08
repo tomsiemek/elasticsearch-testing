@@ -3,6 +3,9 @@ import {Container, Input, Segment, Button} from 'semantic-ui-react';
 import axios from 'axios';
 import Links from'../links';
 import {Redirect} from 'react-router'
+import labels from '../labels';
+
+
 class Login extends Component {
 
 
@@ -58,12 +61,12 @@ class Login extends Component {
             <Container className='center aligned grid'>
             <br/>
             <Segment>
-                <Segment color='blue'>LOGIN PAGE</Segment>
+                <Segment color='blue'>{labels.loginPageTitle}</Segment>
                 {this.state.loginSuccess && <Redirect to='/'/>}
-                {this.state.loginFail && <Segment  inverted color='red'>FAILURE</Segment>}
+                {this.state.loginFail && <Segment  inverted color='red'>{labels.loginPageFailure}</Segment>}
                 
-                    <div><Input placeholder="username" onChange={this.handleUsernameChange} /></div>
-                    <div><Input placeholder="password" type="password" onChange={this.handlePasswordChange} /></div>
+                    <div><Input placeholder={labels.loginPageUsername} onChange={this.handleUsernameChange} /></div>
+                    <div><Input placeholder={labels.loginPagePassword} type="password" onChange={this.handlePasswordChange} /></div>
                     <div><Button onClick={this.handleLoginClick}>Log in</Button></div>
                 </Segment>
                 

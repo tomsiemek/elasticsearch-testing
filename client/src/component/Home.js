@@ -3,6 +3,7 @@ import {Header, Icon, Button} from 'semantic-ui-react';
 
  import {Link} from 'react-router-dom';
  import Links from '../links';
+ import labels from '../labels';
 
 const Home = () => {
 
@@ -14,6 +15,8 @@ const Home = () => {
             textAlign: 'center',
             fontSize: 18
       }
+
+      console.log(labels.welcome);
     return (
         
         <div>
@@ -21,13 +24,13 @@ const Home = () => {
                 <Header as='h3' icon color='blue' size='huge'>
                     <Icon name='shop' color='blue'/>
                     
-                    <Header as='h2' color='blue' size='huge'>Welcome to our shop!</Header>
-                    Get all the stuff you need.
+                    <Header as='h2' color='blue' size='huge'>{labels.welcome}</Header>
+                    {labels.homeSubtitle}
                 </Header>
                 <br/>
-                <Button size='massive' as={Link} to={Links.phonesPath} >Phones</Button>
-                <Button size='massive' as={Link} to={Links.tvsPath} >Tvs</Button>
-                <Button size='massive' as={Link} to={Links.watchesPath} >Watches</Button>
+                <Button size='massive' as={Link} to={Links.phonesPath} >{labels.phones}</Button>
+                <Button size='massive' as={Link} to={Links.tvsPath} >{labels.tvs}</Button>
+                <Button size='massive' as={Link} to={Links.watchesPath} >{labels.watches}</Button>
                 
             </div>
         </div>

@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import PageContent from './PageContent';
+import labels from '../labels';
+
 const queryString = require('query-string');
+
 
 class Search extends Component  {
     constructor(props) {
@@ -42,7 +45,7 @@ class Search extends Component  {
 
     render() {
         if(this.state.data.length === 0 || this.state.data === undefined){
-            return (<div>NO RESULTS FOR THIS </div>);
+            return (<div>{labels.searchNoResult} </div>);
         }
         return (<PageContent data={this.state.data}/>);
     }

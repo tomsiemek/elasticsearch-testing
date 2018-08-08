@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Container, Segment, Input, Button} from 'semantic-ui-react';
 import axios from 'axios';
 import Links from '../links';
+import labels from '../labels';
 
 class SignUp extends Component {
 
@@ -85,14 +86,14 @@ class SignUp extends Component {
             <Container className='center aligned grid'>
             <br/>
                 <Segment>
-                    <Segment color='blue'>REGISTER PAGE</Segment>
+                    <Segment color='blue'>{labels.signUpTitle}</Segment>
                     <div><Input placeholder="username" onChange={this.changeUsername} /></div>
                     <div><Input placeholder="password" type="password" onChange={this.changePassword} /></div>
                     <div><Input placeholder="repeat password" type="password" onChange={this.changeRepeatedPassword} /></div>
-                    <div><Button onClick={this.handleSignUp}>Sign up</Button></div>
-                    {this.state.passwordMistake && <div>PASSWORDS DOES NOT MATCH</div>}
-                    {this.state.usernameTaken && <div>USERNAME ALREADY TAKEN</div>}
-                    {this.state.signUpSuccess && <div>SUCCESS</div>}
+                    <div><Button onClick={this.handleSignUp}>SIGN UP</Button></div>
+                    {this.state.passwordMistake && <div>{labels.passwordMistake}</div>}
+                    {this.state.usernameTaken && <div>{labels.usernameTaken}</div>}
+                    {this.state.signUpSuccess && <div>{labels.success}</div>}
                 </Segment>
 
             </Container>

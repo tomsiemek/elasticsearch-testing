@@ -3,6 +3,8 @@ import axios from 'axios';
 import Links from '../links'
 import {Table, TableBody, TableRow, TableCell, Button, Container} from 'semantic-ui-react';
 import cookie from 'react-cookies';
+import labels from '../labels';
+
 
 class Userlist extends Component {
     state = {
@@ -50,7 +52,7 @@ class Userlist extends Component {
         if (this.state.fail) {
             return (
                 <div>
-                    YOU DO NOT HAVE RIGHTS TO VIEW THIS 
+                    {labels.userlistNoAuth}
                  </div>
             )
         }
@@ -63,9 +65,9 @@ class Userlist extends Component {
 
                         <Table.Header>
                             <Table.Row>
-                                <Table.HeaderCell>LOGIN</Table.HeaderCell>
-                                <Table.HeaderCell>ID</Table.HeaderCell>
-                                <Table.HeaderCell>DELETE</Table.HeaderCell>
+                                <Table.HeaderCell>{labels.loginCaps}</Table.HeaderCell>
+                                <Table.HeaderCell>{labels.id}</Table.HeaderCell>
+                                <Table.HeaderCell>{labels.delete}</Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
 
@@ -85,7 +87,7 @@ class Userlist extends Component {
 
                                             <TableCell>
                                                 <Button color='red' onClick={() => this.deleteUser(item._id)}>
-                                                    DELETE
+                                                    {labels.delete}
                                             </Button>
                                             </TableCell>
                                         </TableRow>
