@@ -108,7 +108,6 @@ class Userlist extends Component {
 
                                             <TableCell>
                                                 {item.role}
-                                                
                                             </TableCell>
 
                                             <TableCell>
