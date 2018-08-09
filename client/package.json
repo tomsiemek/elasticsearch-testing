@@ -26,5 +26,8 @@
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:5000/",
-  "devDependencies": {}
+  "devDependencies": {
+    "enzyme": "^3.4.1",
+    "enzyme-adapter-react-16": "^1.2.0"
+  }
 }

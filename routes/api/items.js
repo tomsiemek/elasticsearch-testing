@@ -15,7 +15,7 @@ const JsonWebTokenMiddleware = expressJsonValidate({secret: secretKey});
 const pageLimit = 10;
 
 //getting all items
-router.get('/',JsonWebTokenMiddleware, (req,res) => {
+router.get('/', (req,res) => {
     console.log("GET REQUEST " + new Date().toLocaleString());
     Item.find()
         .then(items => res.json(items))
@@ -24,7 +24,7 @@ router.get('/',JsonWebTokenMiddleware, (req,res) => {
 
 router.get('/id/:id', (req,res) => {
     console.log("GET REQUEST ID: " + req.params.id + ' ' + new Date().toLocaleString());
-    Item.find({_id: req.params.id})
+    Item.find({_id: req.params.id}) 
         .then(items => res.json(items));
 });
 

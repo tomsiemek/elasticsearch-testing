@@ -40,8 +40,28 @@ class Userlist extends Component {
         this.getData();
     }
 
-    deleteUser = (_id) => {
-        console.log(`DELTE HIM: ${_id}`)
+    refresh = () => {
+        window.location.reload();
+    }
+
+    deleteUser = (login) => {
+        console.log(`DELTE HIM: ${login}`);
+
+        axios.delete(`/users/username/${login}`)
+            .then(res => console.log(res));
+
+            let headers = {
+                'Content-Type': 'application/json',
+                'Authorization' : cookie.load('token')
+            }
+    
+            axios( {
+                method:'delete',
+                url: `/users/username/${login}`,
+                headers
+            })
+            .then(this.refresh());
+              
     }
 
     render() {
@@ -67,6 +87,7 @@ class Userlist extends Component {
                             <Table.Row>
                                 <Table.HeaderCell>{labels.loginCaps}</Table.HeaderCell>
                                 <Table.HeaderCell>{labels.id}</Table.HeaderCell>
+                                <Table.HeaderCell>Role</Table.HeaderCell>
                                 <Table.HeaderCell>{labels.delete}</Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
@@ -86,7 +107,12 @@ class Userlist extends Component {
                                             </TableCell>
 
                                             <TableCell>
-                                                <Button color='red' onClick={() => this.deleteUser(item._id)}>
+                                                {item.role}
+                                                
+                                            </TableCell>
+
+                                            <TableCell>
+                                                <Button color='red' onClick={() => this.deleteUser(item.login)}>
                                                     {labels.delete}
                                             </Button>
                                             </TableCell>

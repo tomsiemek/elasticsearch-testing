@@ -54,6 +54,33 @@ router.put('/:username', (req,res) => {
 
 
 })
+
+// upgrading role
+router.put('/upgrade/:username', (req, res) => {
+    let username = req.params.username;
+    console.log(`CHANGE ROLE FOR: ${username}`);
+    User.findOne({ login: username })
+        .then(user => {
+            user.role = 'admin';
+            user.save().then((status) => res.json(status));
+        })
+        .catch (err => res.json(err));
+
+});
+
+// degrade role
+router.put('/degrade/:username', (req, res) => {
+    let username = req.params.username;
+    console.log(`CHANGE ROLE FOR: ${username}`);
+    User.findOne({ login: username })
+        .then(user => {
+            user.role = 'user';
+            user.save().then((status) => res.json(status));
+        })
+        .catch (err => res.json(err));
+
+});
+
 //create new user
 router.post('/', (req, res) => {
     console.log("POST REQUEST NEW USER " + new Date().toLocaleString());
@@ -77,40 +104,82 @@ router.post('/', (req, res) => {
 
 });
 
+
+
+
+// creating first admin user
+// router.post('/createDad', (req, res) => {
+//     console.log("POST REQUEST NEW USER " + new Date().toLocaleString());
+//     console.log(req.body.login);
+//     try {
+//         let salt = createSalt();
+//         const newItem = new User(new UserObject(req.body.login, encryptPassword(req.body.password, salt), salt, 'admin'));
+
+//         newItem.save().then(item => res.json(item));
+//     }
+
+//     catch(err){
+//         res.json({
+//             message: err.message
+//         })
+//     }
+
+
+// });
+
+
 function responseObject(isOk, token_ = null) {
     return {
         success: isOk,
         token: token_
     };
 }
-// get all users
-router.get('/', JsonWebTokenMiddleware, (req,res) => {
-    console.log("GET REQUEST USERS " + new Date().toLocaleString());
 
-    const adminLogin = 'tomek';
+function checkIfAdmin(login, callback) {
+    User.findOne({ login })
+    .then(user => {
+        if (user.role === 'admin') {
+            callback();
+        }
+        else {
+            res.json(
+                {
+                    msg: "You do not have permission to see this page"
+                }
+            )
+        }
+    })
+    .catch(err => console.log(err));
+}
+
+// get all users
+router.get('/', JsonWebTokenMiddleware, (req, res) => {
+    console.log("GET REQUEST USERS " + new Date().toLocaleString());
 
     const token = req.get('Authorization').split(' ')[1]
     const decoded = JsonWebToken.decode(token);
-    if(decoded.login === adminLogin) {
-       User.find()
-        .sort({ login: 1})
-        .then(users => res.json(users)); 
-    }
-    else {
-        res.json(
-            {
-                msg: "You are not Tomek, you crazy bastard"
-            }
-        )
-    }
 
-    
+
+    checkIfAdmin(decoded.login, () => {
+            User.find()
+                .sort({ login: 1 })
+                .then(users => res.json(users));
+    });
+        
+
 });
 //delete user
-router.delete('/id/:id', (req,res) => {
-    User.findByIdAndRemove(req.params.id)
-        .then( () => res.json(responseObject(true)))
-        .catch(() => res.status(404).json(responseObject(false)));
+router.delete('/username/:username', JsonWebTokenMiddleware, (req, res) => {
+
+    const token = req.get('Authorization').split(' ')[1]
+    const decoded = JsonWebToken.decode(token);
+
+
+    checkIfAdmin(decoded.login, () => {
+        User.remove({login: req.params.username})
+            .then( () => res.json(responseObject(true)))
+            .catch(() => res.status(404).json(responseObject(false)));
+    });
 });
 //delete all users
 router.delete('/all', (req,res) => {

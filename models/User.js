@@ -15,6 +15,7 @@ const User = new Schema( new UserObject(
         type: String,
         required: true
     },
+    String,
     String
 ) );
 

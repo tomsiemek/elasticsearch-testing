@@ -22,9 +22,12 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    if(cookie.load('username') !== this.userNameLoggedOff)
+
+    let username = cookie.load('username');
+    let token = cookie.load('token');
+    if(username !== this.userNameLoggedOff && username !== undefined )
     {
-      this.setStateLoggedIn(cookie.load('username'), cookie.load('token'));
+      this.setStateLoggedIn(username, token);
     }
   }
 
