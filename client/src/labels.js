@@ -38,7 +38,8 @@ const polish = {
     userList: "Uzytkownicy",
     profile: 'Profil',
     language: 'Jezyk',
-    logOut: 'Wyloguj'
+    logOut: 'Wyloguj',
+    logs: 'Logi'
 }
 
 
@@ -81,7 +82,8 @@ const english = {
     userList: "Users",
     profile: 'Profile',
     language: 'Language',
-    logOut: 'Log out'
+    logOut: 'Log out',
+    logs: 'Logs'
 }
 let language = cookie.load('language');
 console.log(language);

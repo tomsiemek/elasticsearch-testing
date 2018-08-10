@@ -22,5 +22,8 @@ module.exports = {
     userListPath: '/userlist',
     userListRequest: "http://localhost:3000/users/",
     profilePath: '/profile',
-    changePasswordRequest: 'http://localhost:3000/users/'
+    changePasswordRequest: 'http://localhost:3000/users/',
+    logsPath: '/logs',
+    logsCombinedRequest: '/logs/combined',
+    logsErrorRequest: '/logs/error'
 };

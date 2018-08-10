@@ -13,6 +13,7 @@ import Login from './Login';
 import SignUp from './SignUp';
 import Userlist from './Userlist'
 import ChangeProfile from './ChangeProfile'
+import Logs from './Logs';
 class Main extends Component {
 
 
@@ -30,6 +31,7 @@ class Main extends Component {
                     <Route path={Links.signUpPath} component={SignUp}/>
                     <Route path={Links.userListPath} component={Userlist}/>
                     <Route path={Links.profilePath} component={ChangeProfile}/>
+                    <Route path={Links.logsPath} component={Logs}/>
                     <Route path={Links.anyPath} component={NoResult}/>
                 </Switch>
         )

@@ -46,6 +46,12 @@ class Header extends Component {
                 </Menu.Item>
                 }
 
+                {this.props.isLogged &&
+                <Menu.Item>
+                    <Link to={Links.logsPath}><Icon name="circle" />{labels.logs}</Link>
+                </Menu.Item>
+                }
+
                 {!this.props.isLogged &&
                  <Menu.Item>
                     <Link to={Links.loginPath}><Icon name="sign in" />{labels.login}</Link>

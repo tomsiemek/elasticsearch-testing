@@ -6,6 +6,16 @@ import cookie from 'react-cookies';
 import labels from '../labels';
 
 
+
+
+const ButtonsRoles = () => (
+    <Button.Group>
+      <Button negative>Degrade</Button>
+      <Button.Or />
+      <Button positive>Upgrade</Button>
+    </Button.Group>
+  )
+
 class Userlist extends Component {
     state = {
         data: [],
@@ -64,6 +74,17 @@ class Userlist extends Component {
               
     }
 
+    upgrade = username => {
+        axios.put(`/users/upgrade/${username}`)
+        .then(() => this.refresh())
+    }
+
+    degrade = username => {
+        axios.put(`/users/degrade/${username}`)
+        .then(() => this.refresh())
+
+    }
+
     render() {
 
         console.log(this.state.fail);
@@ -88,6 +109,7 @@ class Userlist extends Component {
                                 <Table.HeaderCell>{labels.loginCaps}</Table.HeaderCell>
                                 <Table.HeaderCell>{labels.id}</Table.HeaderCell>
                                 <Table.HeaderCell>Role</Table.HeaderCell>
+                                <Table.HeaderCell>Change Role</Table.HeaderCell>
                                 <Table.HeaderCell>{labels.delete}</Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
@@ -108,6 +130,11 @@ class Userlist extends Component {
 
                                             <TableCell>
                                                 {item.role}
+                                            </TableCell>
+
+                                            <TableCell>
+                                                {item.role === 'admin' &&  <Button negative onClick={()=>this.degrade(item.login)}>Degrade</Button>}
+                                                {item.role !== 'admin' &&  <Button positive onClick={()=>this.upgrade(item.login)}>Upgrade</Button>}
                                             </TableCell>
 
                                             <TableCell>
