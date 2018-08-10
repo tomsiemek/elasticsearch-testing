@@ -9,7 +9,12 @@ const secretKey = require('../../config/keys').secretKey;
 
 const JsonWebTokenMiddleware = expressJsonValidate({secret: secretKey});
 const crypto = require('crypto');
-;
+
+const log = require('../../winston');
+
+const checkIfAdmin = require('./utils/checkIfAdmin');
+
+
 function encryptPassword(password, salt) {
     console.log(salt);
 
@@ -26,6 +31,10 @@ function createSalt () {
     return salt;
 }
 
+const logChangeOfPassword = (username) => {
+    log('info', `user ${username} changed password`)
+} 
+
 // change password
 router.put('/:username', (req,res) => {
     let oldPassword = req.body.oldPassword;
@@ -39,7 +48,10 @@ router.put('/:username', (req,res) => {
 
             if(user.password === encryptedPassword) {
                 user.password = encryptPassword(newPassword, user.salt);
-                user.save().then( (status) => res.json(status) );
+                user.save().then( (status) => {
+                    logChangeOfPassword(username); 
+                    res.json(status);
+                } );
             }
             else {
                 res.json({
@@ -58,11 +70,15 @@ router.put('/:username', (req,res) => {
 // upgrading role
 router.put('/upgrade/:username', (req, res) => {
     let username = req.params.username;
-    console.log(`CHANGE ROLE FOR: ${username}`);
+    console.log(`UPGRADE ROLE FOR: ${username}`);
     User.findOne({ login: username })
         .then(user => {
             user.role = 'admin';
-            user.save().then((status) => res.json(status));
+            user.save().then((status) => {
+                log('info', `user ${username} upgraded to admin`);
+                res.json(status);
+            
+            });
         })
         .catch (err => res.json(err));
 
@@ -71,11 +87,14 @@ router.put('/upgrade/:username', (req, res) => {
 // degrade role
 router.put('/degrade/:username', (req, res) => {
     let username = req.params.username;
-    console.log(`CHANGE ROLE FOR: ${username}`);
+    console.log(`DEGRADE ROLE FOR: ${username}`);
     User.findOne({ login: username })
         .then(user => {
             user.role = 'user';
-            user.save().then((status) => res.json(status));
+            user.save().then((status) => {
+                log('info', `user ${username} degraded to user`);
+                res.json(status);
+            });
         })
         .catch (err => res.json(err));
 
@@ -92,7 +111,11 @@ router.post('/', (req, res) => {
                 let salt = createSalt();
                 const newItem = new User(new UserObject(req.body.login, encryptPassword(req.body.password, salt), salt));
 
-                newItem.save().then(item => res.json(item));
+                newItem.save()
+                .then(item => {
+                    log('info', `user ${req.body.login} created`)
+                    res.json(item);
+                });
             }
             else {
                 res.json({
@@ -135,23 +158,6 @@ function responseObject(isOk, token_ = null) {
     };
 }
 
-function checkIfAdmin(login, callback) {
-    User.findOne({ login })
-    .then(user => {
-        if (user.role === 'admin') {
-            callback();
-        }
-        else {
-            res.json(
-                {
-                    msg: "You do not have permission to see this page"
-                }
-            )
-        }
-    })
-    .catch(err => console.log(err));
-}
-
 // get all users
 router.get('/', JsonWebTokenMiddleware, (req, res) => {
     console.log("GET REQUEST USERS " + new Date().toLocaleString());
@@ -177,14 +183,20 @@ router.delete('/username/:username', JsonWebTokenMiddleware, (req, res) => {
 
     checkIfAdmin(decoded.login, () => {
         User.remove({login: req.params.username})
-            .then( () => res.json(responseObject(true)))
+            .then( () => {
+                log('info', `user ${req.params.username} deleted` );
+                res.json(responseObject(true));
+            })
             .catch(() => res.status(404).json(responseObject(false)));
     });
 });
 //delete all users
 router.delete('/all', (req,res) => {
     User.remove({})
-        .then( () => res.json(responseObject(true)))
+        .then( () => {
+            log('info', 'all users deleted');
+            res.json(responseObject(true));
+        })
         .catch(() => res.status(404).json(responseObject(false)));
 });
 
@@ -208,6 +220,7 @@ router.post('/login', (req,res) => {
                res.json(responseObject(true, token));
            } 
            else {
+               log('error', `failed login try for user ${req.body.login}`);
                res.json(responseObject(false));
            }
        }).catch(err => res.json(noUserFoundMessage(req.body.login)));
