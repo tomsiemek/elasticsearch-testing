@@ -6,9 +6,15 @@ Project in scratch only simplest backend logic is implemented.
 
 `docker-compose up` to download and run dockers with mongoDB and elasticsearch
 
-`npm install` to install
+`npm install` to install packages
 
 `npm run start` to run server
+
+`npm run setup` to setup database(server has to be running)
+
+`npm run client` to run client
+
+
 
 ## Built With
 

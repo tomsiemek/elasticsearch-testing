@@ -4,8 +4,12 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "history": "^4.7.2",
     "lodash": "^4.17.10",
+    "query-string": "^6.1.0",
     "react": "^16.4.1",
+    "react-cookie": "^2.2.0",
+    "react-cookies": "^0.1.0",
     "react-dom": "^16.4.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
@@ -22,5 +26,8 @@
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:5000/",
-  "devDependencies": {}
+  "devDependencies": {
+    "enzyme": "^3.4.1",
+    "enzyme-adapter-react-16": "^1.2.0"
+  }
 }

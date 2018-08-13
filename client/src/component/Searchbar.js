@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import {Input} from 'semantic-ui-react';
+import labels from '../labels';
 class Searchbar extends Component {
-
 
   render() {
     return (
-      <div class="right">
-        <Input type="text" placeholder="Szukaj..." onChange={(event) => this.props.onChange(event.target.value)} />
+      <div className="right">
+        <Input type="text" size="big" placeholder={labels.searchbarPlaceholder} onChange={ (event) => { 
+          return this.props.onChange(event.target.value); }
+          } autoFocus />
       </div>
     );
   }

@@ -10,21 +10,36 @@ const elasticsearchURI = require('../config/keys').elasticsearchUri;
 var mongoosePaginate = require('mongoose-paginate');
 
 
-const ItemSchema = new Schema(new ItemObject( 
-    { 
-    type: String,
-    required: true,
-    es_indexed: true
+const ItemSchema = new Schema(new ItemObject(
+    {
+        type: String,
+        required: true,
+        es_indexed: true
     },
-    { 
-    type: String,
-    required: true,
-    es_indexed: true
-    }, 
-    { 
-    type: String,
-    required: true,
-    es_indexed: true
+    {
+        type: String,
+        required: true,
+        es_indexed: true
+    },
+    {
+        type: String,
+        required: true,
+        es_indexed: true
+    },
+    {
+        type: Number,
+        required: true,
+        es_indexed: true
+    },
+    {
+        type: String,
+        required: true,
+        es_indexed: true
+    },
+    {
+        type: Number,
+        required: true,
+        es_indexed: true
     }
 ));
 ItemSchema.plugin(mongoosastic,{hosts:[elasticsearchURI]});

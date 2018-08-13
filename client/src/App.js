@@ -1,119 +1,100 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from "./component/Header";
-import Content from "./component/Content";
 import Searchbar from './component/Searchbar';
-import axios from 'axios';
 import Links from './links';
-import PageButton from './component/PageButton';
-
-
-const Buttons = (props) => {
-  var buttons = [];
-  for(let i = 0; i < props.maxNumberOfPages; i++) {
-    buttons.push(i+1);
-  }
-  return buttons.map( (item,key) => {
-    return <PageButton number = {item} onClick={props.onClick}/>
-  } )
-}
-
+import Main from './component/Main';
+import history from './history';
+import cookie  from 'react-cookies';
+import Userprofile from './component/Userprofile';
 
 class App extends Component {
 
+
   constructor(props) {
     super(props);
-
     this.state = {
-      data: ["HOME"],
-      currentPageNumber: 1,
-      maxNumberOfPages:0,
-      currentContentPath: Links.homePath
-    }
-
-    this.getSearchDataFromServer = this.getSearchDataFromServer.bind(this);
-    this.getItemDataFromServer = this.getItemDataFromServer.bind(this);
-    this.getContentPath = this.getContentPath.bind(this);
-    this.changeCurrentPage = this.changeCurrentPage.bind(this);
+      isLogged: false,
+      token: '',
+      username: ''
+    };
+    
   }
 
-    changeCurrentPage(newPage) {
-      this.setState({currentPageNumber: newPage});
-      console.log(this.state.currentContentPath + '/page/' + this.state.currentPageNumber);
-      this.getItemDataFromServer(this.state.currentContentPath + '/page/' + this.state.currentPageNumber);
+  componentDidMount = () => {
+
+    let username = cookie.load('username');
+    let token = cookie.load('token');
+    if(username !== this.userNameLoggedOff && username !== undefined )
+    {
+      this.setStateLoggedIn(username, token);
     }
+  }
 
-    getSearchDataFromServer(phrase) {
+  setStateLoggedIn = (username, token) => {
+    this.setState({
+      isLogged: true,
+      token: token,
+      username: username
+    })
+  }
 
-      this.setState({currentContentPath: Links.searchPath, currentPageNumber: 1, maxNumberOfPages: 0})
-      console.log("getting search data from server... first raw:");
 
-      axios.get(Links.searchPath + '/' + phrase)
-        .then(data => {console.log(data); return data;})
-        .then(data_ => {this.setState({data: this.transformSearchDataIntoArray(data_)})});
+  
+
+  handleLogin = (token, username) => {
     
-    }
+    this.setStateLoggedIn(username, token);
+    cookie.save(
+      'token', 
+      `Bearer ${token}`, 
+    );
+    cookie.save('username', username);
 
-    transformSearchDataIntoArray (data) {
-      if(data.data === undefined) {
-        return [];
-      } 
+  }
+  userNameLoggedOff = '!';
+  handleLogout = () => {
+    this.setState({
+      isLogged: false,
+      token: '',
+      username: ''
+    })
 
-      return data.data.hits.hits.map( (item,key) => {
-        return item._source;
-      } );
-    }
+    cookie.save('username', this.userNameLoggedOff );
+    cookie.save('token', this.userNameLoggedOff);
 
-    transformItemDataIntoArray(data) {
-      if(data.data === undefined) {
-        return [];
-      }
-      return data.data.docs;
-    }
+  }
 
 
-    getContentPath(path) {
 
-      if(path === Links.homePath)
-      {
-        this.setState({ data: ["HOME"], currentPageNumber: 0, maxNumberOfPages: 0});
-        return;
-      }
+  onSignIn() {
 
-      console.log("NEW PATH: " );
-      console.log(path);
+  }
 
-      this.setState({currentPageNumber: 1, currentContentPath: path});
-      this.getItemDataFromServer(path + '/page/' + this.state.currentPageNumber);
-    }
+  searchQuery = (phrase) => {
+    console.log("SEARCH QUERY:");
+    console.log( Links.searchQueryPath + '?q=' + phrase);
+    return Links.searchQueryPath + '?q=' + phrase;
+  }
 
-    getMaxNumberOfPages(data) {
-      return data.data.pages;
-    }
+  search  = (phrase) => {
+    console.log("INA APPJS: ");
+    console.log(phrase);
+    history.push(this.searchQuery(phrase));
+  }
 
-    getItemDataFromServer(path) {
-      console.log(path);
-
-      axios.get(path )
-      .then(data => {console.log(data); return data;})
-      .then(data_ => {this.setState({data: this.transformItemDataIntoArray(data_), maxNumberOfPages: this.getMaxNumberOfPages(data_)})});
-    }
-
-    returnObjects() {
-      return this.state.data.map((item,key) => item._source);
-    }
+   
 
   render() {
-    console.log("DATA: ");
-    console.log(this.state.data);
 
     return (
       <div className="App">
-        <Header setPath={this.getContentPath} />
-        <Searchbar onChange={this.getSearchDataFromServer}/>
-               
-        <Content data={this.state.data}/>
-        <Buttons maxNumberOfPages={this.state.maxNumberOfPages} onClick={this.changeCurrentPage}/>
+        <Header handleLogout={this.handleLogout} isLogged={this.state.isLogged} />
+        
+        <Searchbar onChange={this.search}/>
+        
+        <Main handleLogin={this.handleLogin}/>
+        <Userprofile username={this.state.username}/>
       </div>
 
 

@@ -1,8 +1,19 @@
 //setting up our via HTTP requests
 const fetch = require('node-fetch');
 const Item = require("../models/ItemObject");
+const axios = require('axios');
 
-const requestURI = 'http://localhost:5000/api/items';
+const requestURI = 'http://localhost:5000/items';
+
+const itemsURI = "/items";
+
+var faker = require('faker');
+
+const imageSrc = "https://picsum.photos/300/200?image=";
+
+function randomNumber(max) {
+    return Math.floor((Math.random() * max) + 1);
+} 
 
 
 function deleteHeader() {
@@ -13,13 +24,18 @@ function deleteHeader() {
 
 function deleteRecords(records) {
     for(let i = 0; i < records.length; i++) {
-        fetch('/api/items/' + records[i].id, deleteHeader())
+
+        console.log(records[i]);
+
+        // fetch(requestURI + '/' + records[i]._id, deleteHeader())
+        axios.delete(requestURI + '/' + records[i]._id)
         .then(resp => resp.json())
         .catch(e => console.log(e));
     }
 }
 function clearDB() {
-    fetch('/api/items')
+    fetch(requestURI)
+        .then(data => data.json())
         .then(data => { deleteRecords(data) })
         .catch(e => console.log(e))
 }
@@ -49,21 +65,27 @@ function addToDB(item) {
 function addProducts(item, amount) {
     for(let i = 0; i < amount;i++) {
     addToDB(new Item(item.name + i, item.type, item.producer));
+    }
 }
+
+function addRandomItems(amount, type) {
+    for(let i = 0; i < amount;i++) {
+        addToDB(new Item( 
+            faker.commerce.productName(),
+            type,
+            faker.company.companyName(),
+            faker.commerce.price(),
+            imageSrc + randomNumber(20),
+            faker.random.number() ));
+        
+    }
 }
 
-//clearDB();
-const numberOfProducts = 20;
+// clearDB();
 
-let producer = "ALM Factory";
-
-let tvs = new Item("TV", "TV", producer);
-let phones = new Item("PHONE", "PHONE", producer);
-let watches = new Item("WATCH", "WATCH", producer);
-
-addProducts(tvs,numberOfProducts);
-addProducts(phones,numberOfProducts);
-addProducts(watches,numberOfProducts);
-
+ const numberOfProducts = 60;
+addRandomItems(numberOfProducts, 'tv');
+addRandomItems(numberOfProducts, 'phone');
+addRandomItems(numberOfProducts, 'watch');
 
 
