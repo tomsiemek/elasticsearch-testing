@@ -91,9 +91,9 @@ class SignUp extends Component {
                     <div><Input placeholder="password" type="password" onChange={this.changePassword} /></div>
                     <div><Input placeholder="repeat password" type="password" onChange={this.changeRepeatedPassword} /></div>
                     <div><Button onClick={this.handleSignUp}>SIGN UP</Button></div>
-                    {this.state.passwordMistake && <div>{labels.passwordMistake}</div>}
-                    {this.state.usernameTaken && <div>{labels.usernameTaken}</div>}
-                    {this.state.signUpSuccess && <div>{labels.success}</div>}
+                    {this.state.passwordMistake && <Segment  inverted color='red'>{labels.passwordMistake}</Segment>}
+                    {this.state.usernameTaken && <Segment  inverted color='red'>{labels.usernameTaken}</Segment>}
+                    {this.state.signUpSuccess && <Segment  inverted color='green'>{labels.success}</Segment>}
                 </Segment>
 
             </Container>

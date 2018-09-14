@@ -63,12 +63,13 @@ class Login extends Component {
             <Segment>
                 <Segment color='blue'>{labels.loginPageTitle}</Segment>
                 {this.state.loginSuccess && <Redirect to='/'/>}
-                {this.state.loginFail && <Segment  inverted color='red'>{labels.loginPageFailure}</Segment>}
                 
-                    <div><Input placeholder={labels.loginPageUsername} onChange={this.handleUsernameChange} /></div>
-                    <div><Input placeholder={labels.loginPagePassword} type="password" onChange={this.handlePasswordChange} /></div>
-                    <div><Button onClick={this.handleLoginClick}>Log in</Button></div>
-                </Segment>
+                
+                <div><Input placeholder={labels.loginPageUsername} onChange={this.handleUsernameChange} /></div>
+                <div><Input placeholder={labels.loginPagePassword} type="password" onChange={this.handlePasswordChange} /></div>
+                <div><Button onClick={this.handleLoginClick}>Log in</Button></div>
+                {this.state.loginFail && <Segment  inverted color='red'>{labels.loginPageFailure}</Segment>}
+            </Segment>
                 
             </Container>
         )
