@@ -1,20 +1,14 @@
-Project in scratch only simplest backend logic is implemented.
-
 ## How to launch:
 
 ### In the root project directory:
 
 `docker-compose up` to download and run dockers with mongoDB and elasticsearch
 
-`npm install` to install packages
+`npm install-all` to install packages for client and server
 
-`npm run start` to run server
+`npm run dev` to run server and client
 
-`npm run setup` to setup database(server has to be running)
-
-`npm run client` to run client
-
-
+`npm run setup` to setup database(server has to be running) if you want (it will be empty if you just set up the docker)
 
 ## Built With
 

@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 const Item = require("../models/ItemObject");
 const axios = require('axios');
 
-const requestURI = 'http://localhost:5000/items';
+const requestURI = 'http://localhost:5000/items/tempAddItem';
 
 const itemsURI = "/items";
 

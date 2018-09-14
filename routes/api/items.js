@@ -54,6 +54,17 @@ router.post('/',JsonWebTokenMiddleware, (req,res) => {
     newItem.save().then(item => res.json(item));
 }); // already on api/items
 
+//temporary fix to let add items without verification
+router.post('/tempAddItem',  (req,res) => {
+
+    console.log("POST REQUEST " + new Date().toLocaleString());
+    console.log(req.body);
+    
+    const newItem = new Item( (new ItemObject(req.body.name, req.body.type, req.body.producer,req.body.price, req.body.imageUrl, req.body.amount)));
+
+    newItem.save().then(item => res.json(item));
+});
+
 router.get('/search/:id', (req,res) => {
     console.log("SEARCH REQUEST " + new Date().toLocaleString());
     var query = {

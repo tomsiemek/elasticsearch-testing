@@ -8,8 +8,12 @@
     "start": "node index.js",
     "server": "nodemon index.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client \"",
-    "setup": "node ./config/setUpDatabase.js"
+    "docker-setup": "docker-compose up",
+    "dev": "concurrently 'npm run docker-setup' 'sleep 7 && npm run server & npm run client'",
+    "install-client": "npm install --prefix client",
+    "install-server": "npm install",
+    "setup": "node ./config/setUpDatabase.js",
+    "install-all": "npm run install-server && npm run install-client"
   },
   "author": "",
   "license": "ISC",
